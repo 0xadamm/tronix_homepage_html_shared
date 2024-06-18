@@ -1,0 +1,11 @@
+{
+  "name": "tronix_homepage_html",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/0xadamm/tronix_homepage_html.git",
+  "author": "0xadamm <adam.mourade@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.3.2"
+  }
+}

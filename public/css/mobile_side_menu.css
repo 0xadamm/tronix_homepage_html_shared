@@ -1,0 +1,161 @@
+.mobile-side-menu-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(50px);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-side-menu-container.shown {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-side-menu-container .mobile-menu {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  background-color: #1a1818;
+  transform: translateX(-100%);
+  transition: all 0.5s ease;
+}
+
+.mobile-side-menu-container .mobile-menu.shown {
+  transform: translateX(0);
+}
+
+.mobile-side-menu-container .mobile-menu .subscribe-container {
+  width: 100%;
+  padding: 0.6rem;
+}
+
+.mobile-side-menu-container .mobile-menu .subscribe-btn {
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #fff;
+  background: linear-gradient(90deg, #410374 0%, #7716bc 100%) 0% 0% no-repeat
+    padding-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 6px;
+}
+
+.mobile-side-menu-container .mobile-menu .account-actions {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  border-bottom: 1px solid #393939;
+  position: sticky;
+  background: url(https://tronixnetwork.com/login-bg.845661df407fb0ee.jpg);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+
+.mobile-side-menu-container .mobile-menu .account-actions .user-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #a8a8a8;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.mobile-side-menu-container .mobile-menu .account-actions .user-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  color: #fff;
+}
+
+.mobile-side-menu-container .mobile-menu .account-actions .user-name h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.mobile-side-menu-container .mobile-menu .account-actions .user-name h5 {
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.mobile-side-menu-container .mobile-menu .account-actions .edit-btn {
+  color: #fff;
+  margin-left: auto;
+}
+
+.mobile-side-menu-container .mobile-menu .menu-links {
+  height: calc(90%);
+  overflow: auto;
+}
+
+.mobile-side-menu-container .mobile-menu .menu-links .link-group .group-name {
+  color: #809181;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+}
+
+.menu-links .link {
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  gap: 4px;
+  padding: 0.6rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.menu-links .divider {
+  background-color: #272828;
+  height: 0.5rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.menu-links .link a {
+  color: #9d9d9d;
+}
+
+.menu-links .link .link-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  border-bottom: 1px solid #393939;
+  width: 100%;
+  padding: 0px 0px 1.2rem 0.4rem;
+}
+
+.menu-links .link:last-child .link-text {
+  border-bottom: none !important;
+}
+
+.menu-links .link .title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.menu-links .link .subtitle {
+  font-weight: 400;
+  font-size: 0.6rem;
+}

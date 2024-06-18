@@ -1,0 +1,80 @@
+.swiper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-slide video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow-clip-margin: content-box;
+  overflow: clip;
+  position: absolute;
+  object-position: center;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.swiper-pagination {
+  transform: translateY(-26px);
+}
+
+.swiper-pagination-bullet {
+  background: #fff;
+  opacity: 0.4;
+  width: 31px;
+  height: 7px;
+  border-radius: 10px;
+  transition: all 0.3 ease-in;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: var(--primary_color);
+  opacity: 1;
+  width: 31px;
+  height: 7px;
+  border-radius: 10px;
+}
+
+.banner-promo-player-controls {
+  position: absolute;
+  right: 16px;
+  bottom: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+}
+
+.bg-muted {
+  width: 35px;
+  height: 36px;
+  background: url(https://tronixnetwork.com/icons.3ab780798848b341.svg) -15px -66px;
+  cursor: pointer;
+}
+
+.bg-unmuted {
+  width: 35px;
+  height: 36px;
+  background: url(https://tronixnetwork.com/icons.3ab780798848b341.svg) -78px -10px;
+  cursor: pointer;
+}
+
+.bg-unmuted:hover {
+  background-position: -15px -10px;
+}

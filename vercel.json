@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "index.html", "use": "@vercel/static" },
+    { "src": "public/css/*", "use": "@vercel/static" },
+    { "src": "public/js/*", "use": "@vercel/static" },
+    { "src": "public/images/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/public/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/public/js/(.*)", "dest": "/public/js/$1" },
+    { "src": "/public/images/(.*)", "dest": "/public/images/$1" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+}
