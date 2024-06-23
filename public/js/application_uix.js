@@ -85,6 +85,6 @@ inputField.addEventListener("keypress", (e) => {
     console.log(e.target.value);
     // Perform any additional actions here
     window.location.href =
-      "https://tronixnetwork.com/search?q=" + e.target.value;
+      "https://new.tronixnetwork.com/search?q=" + e.target.value + "&type=all";
   }
 });

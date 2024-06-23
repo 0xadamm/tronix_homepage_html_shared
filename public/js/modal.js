@@ -782,6 +782,8 @@ const dStore = {
   },
 };
 
+const backendUrl = "https://new.tronixnetwork.com/api";
+
 let _wasMuted = false;
 
 const TronixApp = {
@@ -848,12 +850,14 @@ modalContainer.addEventListener("click", (e) => {
 
 /* MODAL: Open modal */
 modalDesc.forEach((item) => {
-  item.addEventListener("click", (e) => {
+  item.addEventListener("click", async (e) => {
     // for mobile version direct open link
     if (window.innerWidth < 768) {
       window.location.href = dStore[item.dataset.series_id].url;
       return;
     }
+    const series_id = item.dataset.api_series_id;
+
     // disable body scroll
     document.body.style.overflow = "hidden";
 
@@ -898,89 +902,152 @@ modalDesc.forEach((item) => {
       });
     });
 
-    // change seasons
-    const seasons = dStore[item.dataset.series_id].seasons;
-    const seasonsArr = Object.keys(seasons);
+    try {
+      /* GET Season info */
+      fetch(`${backendUrl}/season/list/${series_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          /**
+           * @var {Array<any>} seasons
+           */
 
-    const selectEl = modal.querySelector("select#season-select");
-    selectEl.value = seasonsArr[0];
-    seasonsArr.forEach((season, index) => {
-      selectEl.innerHTML += `<option value="${season}">Season ${season}</option>`;
-    });
+          const seasons = data.data.seasons;
+          seasons.sort((a, b) => a.sequence - b.sequence);
+          console.log(seasons);
+          if (seasons.length > 0) {
+            let seasonOptions = "";
+            seasons.forEach((season, index) => {
+              seasonOptions += `<option value="${season.season_id}" ${index === 0 ? "selected" : ""}>Season ${season.sequence}</option>`;
+            });
+            /* Select-Option has been added */
+            document.querySelector(".modal .episode-header").innerHTML =
+              `<h1 class="episode-title">Episodes</h1>
+              <select id="season-select">${seasonOptions}</select>`;
 
-    selectEl.addEventListener("change", (e) => {
-      console.log(e.target.value);
-      // change episodes
-      const episodes = dStore[item.dataset.series_id].seasons[e.target.value];
+            // fetch the first seasons episodes
+            const season_id = seasons[0].season_id;
 
-      let episode_carrds = "";
+            fetch(
+              `${backendUrl}/season/data?season_id=${season_id}&series_id=${series_id}`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+              },
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data.data);
+                // add this data to the modal
+                const episodes = data.data;
+                let episode_cards = "";
 
-      episodes.forEach((episode, index) => {
-        episode_carrds += `<div class="episode-card" onclick="window.location='${
-          episode.url
-        }'" style="cursor: pointer;">
-                  <div>
-                    <h1 class="episode-number">${index + 1}</h1>
-                  </div>
-                  <div>
-                    <div class="episode-image">
-                      <img
-                        src="${episode.thumbnail}"
-                      />
-                    </div>
-                  </div>
-                  <div class="per-episode-details-container">
-                    <div class="per-episode-details">
-                      <h1 class="episode-title">
-                        ${episode.title}
-                      </h1>
-                      <span class="episode-duration">${episode.duration}</span>
-                    </div>
-                    <div>
-                      ${episode.description}
-                    </div>
-                  </div>
-                </div>`;
-      });
-      const _modal = document.querySelector(".modal");
-      _modal.querySelector(".episode-list-container").innerHTML =
-        episode_carrds;
-    });
+                episodes.forEach((episode, index) => {
+                  episode_cards += `<div class="episode-card" onclick="window.location='${
+                    "https://new.tronixnetwork.com/" + episode.url
+                  }'" style="cursor: pointer;">
+                            <div>
+                              <h1 class="episode-number">${index + 1}</h1>
+                            </div>
+                            <div>
+                              <div class="episode-image">
+                                <img
+                                  src="${episode.thumbs[`200x288`]}"
+                                />
+                              </div>
+                            </div>
+                            <div class="per-episode-details-container">
+                              <div class="per-episode-details">
+                                <h1 class="episode-title">
+                                  ${episode.title}
+                                </h1>
+                                <span class="episode-duration">${episode.duration}</span>
+                              </div>
+                              <div>
+                                ${episode.description}
+                              </div>
+                            </div>
+                          </div>`;
+                });
 
-    // change episodes
-    const episodes = dStore[item.dataset.series_id].seasons["1"];
+                document.querySelector(
+                  ".modal .episode-list-container",
+                ).innerHTML = episode_cards;
+              });
 
-    let episode_carrds = "";
+            document
+              .querySelector(".modal select#season-select")
+              .addEventListener("change", (e) => {
+                const _season_id = e.target.value;
+                fetch(
+                  `${backendUrl}/season/data?season_id=${_season_id}&series_id=${series_id}`,
+                  {
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                    },
+                  },
+                )
+                  .then((res) => res.json())
+                  .then((data) => {
+                    // clear previous episode list
+                    document.querySelector(
+                      ".modal .episode-list-container",
+                    ).innerHTML = "";
+                    // add this data to the modal
+                    const episodes = data.data;
+                    let episode_cards = "";
 
-    episodes.forEach((episode, index) => {
-      episode_carrds += `<div class="episode-card" onclick="window.location='${
-        episode.url
-      }'" style="cursor: pointer;">
-                <div>
-                  <h1 class="episode-number">${index + 1}</h1>
-                </div>
-                <div>
-                  <div class="episode-image">
-                    <img
-                      src="${episode.thumbnail}"
-                    />
-                  </div>
-                </div>
-                <div class="per-episode-details-container">
-                  <div class="per-episode-details">
-                    <h1 class="episode-title">
-                      ${episode.title}
-                    </h1>
-                    <span class="episode-duration">${episode.duration}</span>
-                  </div>
-                  <div>
-                    ${episode.description}
-                  </div>
-                </div>
-              </div>`;
-    });
+                    episodes.forEach((episode, index) => {
+                      episode_cards += `<div class="episode-card" onclick="window.location='${
+                        "https://new.tronixnetwork.com/" + episode.url
+                      }'" style="cursor: pointer;">
+                                <div>
+                                  <h1 class="episode-number">${index + 1}</h1>
+                                </div>
+                                <div>
+                                  <div class="episode-image">
+                                    <img
+                                      src="${episode.thumbs[`200x288`]}"
+                                    />
+                                  </div>
+                                </div>
+                                <div class="per-episode-details-container">
+                                  <div class="per-episode-details">
+                                    <h1 class="episode-title">
+                                      ${episode.title}
+                                    </h1>
+                                    <span class="episode-duration">${episode.duration}</span>
+                                  </div>
+                                  <div>
+                                    ${episode.description}
+                                  </div>
+                                </div>
+                              </div>`;
+                    });
 
-    modal.querySelector(".episode-list-container").innerHTML = episode_carrds;
+                    document.querySelector(
+                      ".modal .episode-list-container",
+                    ).innerHTML = episode_cards;
+                  });
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(series_id);
+    }
 
     // change bottom title
     modal.querySelector(".bottom-title").textContent =
