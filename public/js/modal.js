@@ -822,8 +822,6 @@ const TronixApp = {
   },
 };
 
-const modalDesc = document.querySelectorAll(".modal-desc");
-
 const modalContainer = document.querySelector(".modal-container");
 
 // close modal whenever click outside the modal
@@ -836,7 +834,8 @@ modalContainer.addEventListener("click", (e) => {
     TronixApp.pauseModalVideo();
     document.body.style.overflow = "auto";
 
-    swiper.slides[swiper.activeIndex].children[0].muted = false;
+    // DON'T DELETE THIS
+    /* swiper.slides[swiper.activeIndex].children[0].muted = false; */
 
     const player = videojs("modal-video-player");
 
@@ -846,11 +845,11 @@ modalContainer.addEventListener("click", (e) => {
   }
 });
 
-// const modal = document.querySelector(".modal");
+const container = document.getElementById("contentListBg");
 
-/* MODAL: Open modal */
-modalDesc.forEach((item) => {
-  item.addEventListener("click", async (e) => {
+container.addEventListener("click", async (e) => {
+  const item = e.target.closest(".modal-desc");
+  if (item) {
     // for mobile version direct open link
     if (window.innerWidth < 768) {
       window.location.href = dStore[item.dataset.series_id].url;
@@ -862,10 +861,12 @@ modalDesc.forEach((item) => {
     document.body.style.overflow = "hidden";
 
     // pause all videos
-    document.querySelectorAll("video.banner").forEach((item, index) => {
-      _wasMuted = swiper.slides[swiper.activeIndex].children[0].muted;
-      item.muted = true;
-    });
+
+    // DON'T DELETE THIS
+    /* document.querySelectorAll("video.banner").forEach((item, index) => {
+        _wasMuted = swiper.slides[swiper.activeIndex].children[0].muted;
+        item.muted = true;
+      }); */
 
     // dynamic moodal
     const template = document.getElementById("modal-template");
@@ -874,18 +875,20 @@ modalDesc.forEach((item) => {
 
     // change title
     modal.querySelector(".meta-data h1.title").textContent =
-      dStore[item.dataset.series_id].title;
+      item.dataset.series_name;
+
+    console.log(item.dataset);
 
     // push video url
     const videoPlayer = modal.querySelector("video");
-    const videoSource = modal.querySelector("video source");
-    videoPlayer.poster = dStore[item.dataset.series_id].thumbnail;
-    videoSource.src = dStore[item.dataset.series_id].trailer_src;
+    videoPlayer.poster = item.dataset.video_poster;
 
-    // change poster
+    // TODO: fetch source from api then add it;
+
+    // change thumbnail
     modal
       .querySelector(".poster img")
-      .setAttribute("src", dStore[item.dataset.series_id].thumbnail);
+      .setAttribute("src", item.dataset.thumbnail);
 
     // change description
     modal.querySelector(".details .description-text").textContent =
@@ -928,7 +931,7 @@ modalDesc.forEach((item) => {
             /* Select-Option has been added */
             document.querySelector(".modal .episode-header").innerHTML =
               `<h1 class="episode-title">Episodes</h1>
-              <select id="season-select">${seasonOptions}</select>`;
+                <select id="season-select">${seasonOptions}</select>`;
 
             // fetch the first seasons episodes
             const season_id = seasons[0].season_id;
@@ -954,28 +957,28 @@ modalDesc.forEach((item) => {
                   episode_cards += `<div class="episode-card" onclick="window.location='${
                     "https://new.tronixnetwork.com/" + episode.url
                   }'" style="cursor: pointer;">
-                            <div>
-                              <h1 class="episode-number">${index + 1}</h1>
-                            </div>
-                            <div>
-                              <div class="episode-image">
-                                <img
-                                  src="${episode.thumbs[`200x288`]}"
-                                />
-                              </div>
-                            </div>
-                            <div class="per-episode-details-container">
-                              <div class="per-episode-details">
-                                <h1 class="episode-title">
-                                  ${episode.title}
-                                </h1>
-                                <span class="episode-duration">${episode.duration}</span>
+                              <div>
+                                <h1 class="episode-number">${index + 1}</h1>
                               </div>
                               <div>
-                                ${episode.description}
+                                <div class="episode-image">
+                                  <img
+                                    src="${episode.thumbs[`200x288`]}"
+                                  />
+                                </div>
                               </div>
-                            </div>
-                          </div>`;
+                              <div class="per-episode-details-container">
+                                <div class="per-episode-details">
+                                  <h1 class="episode-title">
+                                    ${episode.title}
+                                  </h1>
+                                  <span class="episode-duration">${episode.duration}</span>
+                                </div>
+                                <div>
+                                  ${episode.description}
+                                </div>
+                              </div>
+                            </div>`;
                 });
 
                 document.querySelector(
@@ -1011,28 +1014,28 @@ modalDesc.forEach((item) => {
                       episode_cards += `<div class="episode-card" onclick="window.location='${
                         "https://new.tronixnetwork.com/" + episode.url
                       }'" style="cursor: pointer;">
-                                <div>
-                                  <h1 class="episode-number">${index + 1}</h1>
-                                </div>
-                                <div>
-                                  <div class="episode-image">
-                                    <img
-                                      src="${episode.thumbs[`200x288`]}"
-                                    />
-                                  </div>
-                                </div>
-                                <div class="per-episode-details-container">
-                                  <div class="per-episode-details">
-                                    <h1 class="episode-title">
-                                      ${episode.title}
-                                    </h1>
-                                    <span class="episode-duration">${episode.duration}</span>
+                                  <div>
+                                    <h1 class="episode-number">${index + 1}</h1>
                                   </div>
                                   <div>
-                                    ${episode.description}
+                                    <div class="episode-image">
+                                      <img
+                                        src="${episode.thumbs[`200x288`]}"
+                                      />
+                                    </div>
                                   </div>
-                                </div>
-                              </div>`;
+                                  <div class="per-episode-details-container">
+                                    <div class="per-episode-details">
+                                      <h1 class="episode-title">
+                                        ${episode.title}
+                                      </h1>
+                                      <span class="episode-duration">${episode.duration}</span>
+                                    </div>
+                                    <div>
+                                      ${episode.description}
+                                    </div>
+                                  </div>
+                                </div>`;
                     });
 
                     document.querySelector(
@@ -1099,12 +1102,12 @@ modalDesc.forEach((item) => {
         modalContainer.classList.remove("opened");
         modal.classList.remove("opened");
 
-        swiper.slides[swiper.activeIndex].children[0].muted = false;
+        /* swiper.slides[swiper.activeIndex].children[0].muted = false; */
 
         TronixApp.pauseModalVideo();
         document.body.style.overflow = "auto";
         player.dispose();
       });
     });
-  });
+  }
 });
