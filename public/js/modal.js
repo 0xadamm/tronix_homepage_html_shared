@@ -892,7 +892,7 @@ container.addEventListener("click", async (e) => {
 
     // change description
     modal.querySelector(".details .description-text").textContent =
-      dStore[item.dataset.series_id].description;
+      item.dataset.series_description;
 
     // add link to the action buttons
     const actionButtons = modal.querySelectorAll(".actions .action-btn");
@@ -957,7 +957,7 @@ container.addEventListener("click", async (e) => {
                   episode_cards += `<div class="episode-card" onclick="window.location='${
                     "https://new.tronixnetwork.com/" + episode.url
                   }'" style="cursor: pointer;">
-                              <div>
+                              <div style="width: 7%">
                                 <h1 class="episode-number">${index + 1}</h1>
                               </div>
                               <div>

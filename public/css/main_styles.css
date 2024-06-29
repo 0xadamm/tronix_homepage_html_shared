@@ -1056,6 +1056,7 @@ body div.sticky-bg {
   .episode-list-container
   .per-episode-details-container {
   height: 100%;
+  width: 100%;
   margin-bottom: auto;
 }
 

@@ -18,6 +18,8 @@ let swiper;
       );
       let itemHtml = "";
       data.data.forEach((item) => {
+        if (item.series_name === "The Cook Off with Princess Love") {
+        }
         itemHtml += `
           <div class="swiper-slide">
             <video
