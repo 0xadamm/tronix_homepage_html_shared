@@ -268,6 +268,10 @@
   color: var(--body_font_color);
 }
 
+.modal {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -1056,6 +1060,7 @@ body div.sticky-bg {
   .episode-list-container
   .per-episode-details-container {
   height: 100%;
+  width: 100%;
   margin-bottom: auto;
 }
 

@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tronix Network - Home</title>
+
+    <!-- TODO: Turn on Authcheck   -->
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        AuthCheck(); // Call the AuthCheck function when the page loads
+      });
+    </script> -->
     <script src="https://cdn.jsdelivr.net/gh/arslancb/beeexplayer@master/beeexplayer.min.js"></script>
     <link
       rel="icon"
@@ -22,17 +29,21 @@
     />
   </head>
   <body>
-    <link rel="stylesheet" href="/public/css/main_styles.css" />
+    <script src="https://tronix-homepage-html.vercel.app/public/js/auth.js"></script>
 
-    <link rel="stylesheet" href="/public/css/mobile_side_menu.css" />
+    <!-- Project CSS links -->
 
-    <link rel="stylesheet" href="/public/css/carousel_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/main_styles.css" /> -->
 
-    <link rel="stylesheet" href="/public/css/tv_series_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/mobile_side_menu.css" /> -->
 
-    <link rel="stylesheet" href="/public/css/shows_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/carousel_styles.css" /> -->
 
-    <link rel="stylesheet" href="/public/css/footer_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/tv_series_styles.css" /> -->
+
+    <!-- <link rel="stylesheet" href="/public/css/shows_styles.css" /> -->
+
+    <!-- <link rel="stylesheet" href="/public/css/footer_styles.css" /> -->
 
     <!-- Vodlix CSS links  -->
 
@@ -53,11 +64,15 @@
       rel="stylesheet"
     />
 
-    <!-- CSS links  -->
+    <!-- Vercel CSS links  -->
 
     <link
       rel="stylesheet"
       href="https://tronix-homepage-html.vercel.app/public/css/main_styles.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/mobile_side_menu.css"
     />
 
     <link
@@ -139,7 +154,7 @@
         </div>
         <ul>
           <li>
-            <a href="https://new.tronixnetwork.com/tv-series">TV Series</a>
+            <a href="https://new.tronixnetwork.com/tv-shows">TV Shows</a>
           </li>
           <li>
             <a
@@ -150,7 +165,7 @@
           <li>
             <a
               href="https://new.tronixnetwork.com/movies/category/2/music-videos"
-              >Music</a
+              >Music Videos</a
             >
           </li>
           <li>
@@ -236,7 +251,7 @@
             <div class="profile-icon-container">
               <div>
                 <img
-                  src="https://lh3.googleusercontent.com/ogw/AF2bZyij8yPSPqRoEZEiMoUdLfJDrxNmQ8Vqqvg7HISTpkvGdoc=s32-c-mo"
+                  src="https://tronix-homepage-html.vercel.app/public/images/avatar_placeholder.png"
                   alt=""
                 />
               </div>
@@ -262,7 +277,7 @@
               </svg>
             </div>
 
-            <div class="profile-menu" style="width: 240px">
+            <div class="profile-menu" style="width: auto">
               <div
                 style="
                   padding: 1rem;
@@ -273,15 +288,25 @@
                   border-bottom: 1px solid #3e3e3e;
                 "
               >
+                <!--TODO: link menu avatar to api -->
+
                 <div
                   style="
-                    background-color: #6c757d;
+                    background-color: #00000000;
                     height: 3rem;
                     width: 3rem;
                     border-radius: 50%;
                   "
-                ></div>
-                <div style="font-size: 14px; font-weight: 500">
+                >
+                  <img
+                    src="https://tronix-homepage-html.vercel.app/public/images/avatar_placeholder.png"
+                    alt=""
+                  />
+                </div>
+                <div
+                  id="vodlixTronixUsername"
+                  style="font-size: 14px; font-weight: 500"
+                >
                   &lt;username&gt;
                 </div>
               </div>
@@ -291,59 +316,20 @@
                 }
               </style> -->
               <div class="profile-menu-list" style="padding: 8px">
-                <ul style="display: flex; flex-direction: column; gap: 8px">
+                <ul
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    align-items: start;
+                    justify-content: flex-start;
+                  "
+                >
+                  <!-- Switch Profile -->
                   <li
-                    onclick="window.location.href='https://tronixnetwork.com/profile'"
+                    onclick="window.location.href='https://new.tronixnetwork.com/profiles'"
                     style="
-                      border-bottom: 1px solid #3e3e3e;
-                      padding: 6px 8px 12px 8px;
-                      display: flex;
-                      justify-content: start;
-                      align-items: center;
-                      gap: 0.4rem;
-                      font-size: 12px;
-                    "
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
-                      viewBox="0 0 24 24"
-                    >
-                      <g
-                        id="Account_Setting"
-                        data-name="Account Setting"
-                        transform="translate(-203 -2876)"
-                      >
-                        <g id="gear" transform="translate(205 2877)">
-                          <path
-                            id="XMLID_111_"
-                            d="M14.806,11a3.806,3.806,0,1,0,3.806,3.806A3.806,3.806,0,0,0,14.806,11Zm0,6.09a2.285,2.285,0,1,1,2.285-2.285,2.285,2.285,0,0,1-2.285,2.285Z"
-                            transform="translate(-4.889 -4.149)"
-                            fill="#8E27D8"
-                          ></path>
-                          <path
-                            id="XMLID_114_"
-                            d="M21.664,14.207l-.4-.232a1.523,1.523,0,0,1,0-2.637l.4-.231a2.282,2.282,0,0,0,.837-3.12l-.761-1.319a2.285,2.285,0,0,0-3.12-.836l-.4.231a1.523,1.523,0,0,1-2.285-1.319V4.285A2.285,2.285,0,0,0,13.649,2h-1.52A2.285,2.285,0,0,0,9.844,4.285v.462A1.523,1.523,0,0,1,7.559,6.065l-.4-.232a2.287,2.287,0,0,0-3.12.836L3.28,7.988a2.282,2.282,0,0,0,.836,3.12l.4.231a1.523,1.523,0,0,1,0,2.637l-.4.231a2.282,2.282,0,0,0-.836,3.12l.761,1.319a2.285,2.285,0,0,0,3.118.836l.4-.231a1.523,1.523,0,0,1,2.285,1.319v.462a2.285,2.285,0,0,0,2.285,2.285h1.523a2.285,2.285,0,0,0,2.285-2.285v-.463a1.523,1.523,0,0,1,2.285-1.319l.4.231a2.288,2.288,0,0,0,3.12-.836l.761-1.319a2.282,2.282,0,0,0-.836-3.12Zm-.483,2.358-.761,1.319a.761.761,0,0,1-1.04.279l-.4-.231a3.045,3.045,0,0,0-4.567,2.637v.463a.763.763,0,0,1-.761.761H12.129a.763.763,0,0,1-.761-.761v-.463A3.045,3.045,0,0,0,6.8,17.931l-.4.231a.76.76,0,0,1-1.04-.279L4.6,16.566a.761.761,0,0,1,.279-1.04l.4-.231a3.045,3.045,0,0,0,0-5.274l-.4-.231A.761.761,0,0,1,4.6,8.749L5.36,7.431A.762.762,0,0,1,6.4,7.152l.4.231a3.045,3.045,0,0,0,4.567-2.637V4.285a.763.763,0,0,1,.761-.761h1.523a.763.763,0,0,1,.761.761v.462A3.045,3.045,0,0,0,18.98,7.384l.4-.231a.761.761,0,0,1,1.04.279l.761,1.319a.761.761,0,0,1-.279,1.04l-.4.231a3.045,3.045,0,0,0,0,5.274l.4.231a.761.761,0,0,1,.279,1.04Z"
-                            transform="translate(-2.973 -2)"
-                            fill="#808091"
-                          ></path>
-                        </g>
-                        <rect
-                          id="Rectangle_13566"
-                          data-name="Rectangle 13566"
-                          width="24"
-                          height="24"
-                          transform="translate(203 2876)"
-                          fill="none"
-                        ></rect>
-                      </g>
-                    </svg>
-                    Accounts & Settings
-                  </li>
-                  <li
-                    onclick="window.location.href='https://tronixnetwork.com/shocial/my-watch-list/shoseries'"
-                    style="
+                      width: 100%;
                       border-bottom: 1px solid #3e3e3e;
                       padding: 6px 8px 12px 8px;
                       display: flex;
@@ -398,11 +384,125 @@
                       </g>
                     </svg>
 
-                    My Watchlist
+                    Switch Profile
                   </li>
+                  <!-- Subscription Plans -->
                   <li
-                    onclick="window.location.href='https://tronixnetwork.com/profile'"
+                    onclick="window.location.href='https://new.tronixnetwork.com/subscription/plans/'"
                     style="
+                      width: 100%;
+                      border-bottom: 1px solid #3e3e3e;
+                      padding: 6px 8px 12px 8px;
+                      display: flex;
+                      justify-content: start;
+                      align-items: center;
+                      gap: 0.4rem;
+                      font-size: 12px;
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                      height="22"
+                      width="22"
+                      viewBox="0 0 24 24"
+                      id="svg_mobile_my_history"
+                    >
+                      <g
+                        id="My_Watchlist"
+                        data-name="My Watchlist"
+                        transform="translate(201.751 3053.08)"
+                      >
+                        <rect
+                          id="Rectangle_7587"
+                          data-name="Rectangle 7587"
+                          width="24"
+                          height="24"
+                          transform="translate(-201.751 -3053.08)"
+                          fill="none"
+                        ></rect>
+                        <g
+                          id="Group_31855"
+                          data-name="Group 31855"
+                          transform="translate(-200.989 -3050.997)"
+                        >
+                          <path
+                            id="Path_15699"
+                            data-name="Path 15699"
+                            d="M9.1.25h4.636c.844,0,1.525,0,2.076.045a3.978,3.978,0,0,1,1.528.381,3.9,3.9,0,0,1,1.7,1.71,3.429,3.429,0,0,1,.314,1c.191,0,.364.008.521.019a2.921,2.921,0,0,1,.942.2,2.863,2.863,0,0,1,1.546,1.553,2.956,2.956,0,0,1,.2.946c.022.318.022.7.022,1.169v6.313c0,.464,0,.851-.022,1.169a2.956,2.956,0,0,1-.2.946,2.863,2.863,0,0,1-1.546,1.553,2.919,2.919,0,0,1-.942.2c-.156.011-.33.016-.521.019a3.429,3.429,0,0,1-.314,1,3.9,3.9,0,0,1-1.7,1.71,3.978,3.978,0,0,1-1.528.381c-.551.045-1.232.045-2.076.045H9.1c-.844,0-1.525,0-2.076-.045a3.977,3.977,0,0,1-1.528-.381,3.9,3.9,0,0,1-1.7-1.71,3.43,3.43,0,0,1-.314-1c-.191,0-.364-.008-.521-.019a2.919,2.919,0,0,1-.942-.2A2.863,2.863,0,0,1,.467,15.694a2.957,2.957,0,0,1-.2-.946C.25,14.429.25,14.042.25,13.579h0V7.266h0c0-.464,0-.851.022-1.169a2.957,2.957,0,0,1,.2-.946A2.863,2.863,0,0,1,2.013,3.6a2.921,2.921,0,0,1,.942-.2c.156-.011.33-.016.521-.019a3.43,3.43,0,0,1,.314-1,3.9,3.9,0,0,1,1.7-1.71A3.978,3.978,0,0,1,7.02.3C7.571.25,8.252.25,9.1.25ZM19.459,15.894c.115,0,.217-.007.309-.013a1.429,1.429,0,0,0,.452-.081,1.3,1.3,0,0,0,.7-.706A1.448,1.448,0,0,0,21,14.641c.018-.258.018-.592.018-1.089V7.292c0-.5,0-.83-.018-1.089a1.447,1.447,0,0,0-.081-.454,1.3,1.3,0,0,0-.7-.706,1.428,1.428,0,0,0-.452-.081c-.092-.006-.194-.01-.309-.013,0,.321,0,.672,0,1.057v8.831C19.463,15.222,19.463,15.574,19.459,15.894ZM3.365,14.838c0,.385,0,.736,0,1.057-.115,0-.217-.007-.309-.013a1.429,1.429,0,0,1-.452-.081,1.3,1.3,0,0,1-.7-.706,1.446,1.446,0,0,1-.081-.454c-.018-.258-.018-.593-.018-1.089V7.292c0-.5,0-.83.018-1.089a1.445,1.445,0,0,1,.081-.454,1.3,1.3,0,0,1,.7-.706,1.427,1.427,0,0,1,.452-.081c.092-.006.194-.01.309-.013,0,.321,0,.672,0,1.057h0v8.831ZM7.147,1.855a2.476,2.476,0,0,0-.947.216A2.343,2.343,0,0,0,5.178,3.1a2.506,2.506,0,0,0-.215.952c-.039.483-.04,1.1-.04,1.991V14.8c0,.889,0,1.509.04,1.991a2.507,2.507,0,0,0,.215.952A2.343,2.343,0,0,0,6.2,18.772a2.477,2.477,0,0,0,.947.216c.481.039,1.1.04,1.982.04H13.7c.885,0,1.5,0,1.982-.04a2.477,2.477,0,0,0,.947-.216,2.343,2.343,0,0,0,1.021-1.026,2.508,2.508,0,0,0,.215-.952c.039-.483.04-1.1.04-1.991V6.04c0-.889,0-1.509-.04-1.991A2.508,2.508,0,0,0,17.65,3.1a2.343,2.343,0,0,0-1.021-1.026,2.476,2.476,0,0,0-.947-.216c-.481-.039-1.1-.04-1.982-.04H9.13C8.244,1.815,7.627,1.816,7.147,1.855Z"
+                            transform="translate(-0.25 -0.25)"
+                            fill="#808091"
+                            fill-rule="evenodd"
+                          ></path>
+                          <path
+                            id="Path_15700"
+                            data-name="Path 15700"
+                            d="M13.237,9.3a1.021,1.021,0,0,1,0,1.714l-2.83,1.745A.939.939,0,0,1,9,11.9V8.41a.939.939,0,0,1,1.411-.857Z"
+                            transform="translate(0.206 0.176)"
+                            fill="#8E27D8"
+                          ></path>
+                        </g>
+                      </g>
+                    </svg>
+
+                    Select Plan
+                  </li>
+                  <!-- Account & Settings -->
+                  <li
+                    onclick="window.location.href='https://new.tronixnetwork.com/account'"
+                    style="
+                      width: 100%;
+                      border-bottom: 1px solid #3e3e3e;
+                      padding: 6px 8px 12px 8px;
+                      display: flex;
+                      justify-content: start;
+                      align-items: center;
+                      gap: 0.4rem;
+                      font-size: 12px;
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      viewBox="0 0 24 24"
+                    >
+                      <g
+                        id="Account_Setting"
+                        data-name="Account Setting"
+                        transform="translate(-203 -2876)"
+                      >
+                        <g id="gear" transform="translate(205 2877)">
+                          <path
+                            id="XMLID_111_"
+                            d="M14.806,11a3.806,3.806,0,1,0,3.806,3.806A3.806,3.806,0,0,0,14.806,11Zm0,6.09a2.285,2.285,0,1,1,2.285-2.285,2.285,2.285,0,0,1-2.285,2.285Z"
+                            transform="translate(-4.889 -4.149)"
+                            fill="#8E27D8"
+                          ></path>
+                          <path
+                            id="XMLID_114_"
+                            d="M21.664,14.207l-.4-.232a1.523,1.523,0,0,1,0-2.637l.4-.231a2.282,2.282,0,0,0,.837-3.12l-.761-1.319a2.285,2.285,0,0,0-3.12-.836l-.4.231a1.523,1.523,0,0,1-2.285-1.319V4.285A2.285,2.285,0,0,0,13.649,2h-1.52A2.285,2.285,0,0,0,9.844,4.285v.462A1.523,1.523,0,0,1,7.559,6.065l-.4-.232a2.287,2.287,0,0,0-3.12.836L3.28,7.988a2.282,2.282,0,0,0,.836,3.12l.4.231a1.523,1.523,0,0,1,0,2.637l-.4.231a2.282,2.282,0,0,0-.836,3.12l.761,1.319a2.285,2.285,0,0,0,3.118.836l.4-.231a1.523,1.523,0,0,1,2.285,1.319v.462a2.285,2.285,0,0,0,2.285,2.285h1.523a2.285,2.285,0,0,0,2.285-2.285v-.463a1.523,1.523,0,0,1,2.285-1.319l.4.231a2.288,2.288,0,0,0,3.12-.836l.761-1.319a2.282,2.282,0,0,0-.836-3.12Zm-.483,2.358-.761,1.319a.761.761,0,0,1-1.04.279l-.4-.231a3.045,3.045,0,0,0-4.567,2.637v.463a.763.763,0,0,1-.761.761H12.129a.763.763,0,0,1-.761-.761v-.463A3.045,3.045,0,0,0,6.8,17.931l-.4.231a.76.76,0,0,1-1.04-.279L4.6,16.566a.761.761,0,0,1,.279-1.04l.4-.231a3.045,3.045,0,0,0,0-5.274l-.4-.231A.761.761,0,0,1,4.6,8.749L5.36,7.431A.762.762,0,0,1,6.4,7.152l.4.231a3.045,3.045,0,0,0,4.567-2.637V4.285a.763.763,0,0,1,.761-.761h1.523a.763.763,0,0,1,.761.761v.462A3.045,3.045,0,0,0,18.98,7.384l.4-.231a.761.761,0,0,1,1.04.279l.761,1.319a.761.761,0,0,1-.279,1.04l-.4.231a3.045,3.045,0,0,0,0,5.274l.4.231a.761.761,0,0,1,.279,1.04Z"
+                            transform="translate(-2.973 -2)"
+                            fill="#808091"
+                          ></path>
+                        </g>
+                        <rect
+                          id="Rectangle_13566"
+                          data-name="Rectangle 13566"
+                          width="24"
+                          height="24"
+                          transform="translate(203 2876)"
+                          fill="none"
+                        ></rect>
+                      </g>
+                    </svg>
+                    Accounts & Settings
+                  </li>
+                  <!-- Sign Out -->
+                  <li
+                    onclick="SignOut()"
+                    style="
+                      width: 100%;
                       padding: 6px 8px 12px 6px;
                       display: flex;
                       justify-content: start;
@@ -472,7 +572,7 @@
       <div class="mobile-menu">
         <div
           class="account-actions"
-          onclick="window.location.href='https://tronixnetwork.com/profile'"
+          onclick="window.location.href='https://new.tronixnetwork.com/account'"
         >
           <div class="user-img"></div>
           <div class="user-name">
@@ -1037,71 +1137,8 @@
 
     <section id="banner-promo-player" class="promo-banner">
       <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <video
-              class="banner"
-              disablepictureinpicture="true"
-              controlslist="nodownload"
-              autoplay
-              playsinline
-              src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714492634107-the-cookoff-with-princess-love_promo.mp4"
-              poster="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-home-banner-images/30-04-2024/1714492649150-blob.jpg"
-            >
-              <source
-                type="video/mp4"
-                src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714492634107-the-cookoff-with-princess-love_promo.mp4"
-              />
-            </video>
-          </div>
-          <div class="swiper-slide">
-            <video
-              class="banner"
-              disablepictureinpicture="true"
-              controlslist="nodownload"
-              autoplay
-              playsinline
-              src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714508650748-hangover-69-las-vegas_promo.mp4"
-              poster="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-home-banner-images/30-04-2024/1714492649150-blob.jpg"
-            >
-              <source
-                type="video/mp4"
-                src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714492634107-the-cookoff-with-princess-love_promo.mp4"
-              />
-            </video>
-          </div>
-          <div class="swiper-slide">
-            <video
-              class="banner"
-              disablepictureinpicture="true"
-              controlslist="nodownload"
-              autoplay
-              playsinline
-              src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714492634107-the-cookoff-with-princess-love_promo.mp4"
-              poster="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-home-banner-images/30-04-2024/1714492649150-blob.jpg"
-            >
-              <source
-                type="video/mp4"
-                src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714492634107-the-cookoff-with-princess-love_promo.mp4"
-              />
-            </video>
-          </div>
-          <div class="swiper-slide">
-            <video
-              class="banner"
-              disablepictureinpicture="true"
-              controlslist="nodownload"
-              autoplay
-              playsinline
-              src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714492634107-the-cookoff-with-princess-love_promo.mp4"
-              poster="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-home-banner-images/30-04-2024/1714492649150-blob.jpg"
-            >
-              <source
-                type="video/mp4"
-                src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-promo-output/2024/04/30/1714492634107-the-cookoff-with-princess-love_promo.mp4"
-              />
-            </video>
-          </div>
+        <div class="swiper-wrapper banner-promo-items">
+          <div class="video-overlay"></div>
         </div>
         <div class="swiper-pagination"></div>
         <div class="banner-promo-player-controls">
@@ -1117,14 +1154,19 @@
 
     <section id="contentListBg" class="content-list">
       <div class="content-list-carousel-container">
-        <h1>TV Series</h1>
+        <h1>TV Shows</h1>
         <div class="">
           <div class="tv-series">
             <div class="swiper-wrapper">
-              <div class="swiper-slide modal-desc" data-series_id="1">
+              <!-- The Cook Off  -->
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="1"
+                data-api_series_id="5"
+              >
                 <div class="show-image">
                   <img
-                    src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/30-04-2024/1714492654752-blob.webp"
+                    src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/20-06-2024/1718859311045-blob.webp"
                   />
                 </div>
                 <div class="premium-badge">
@@ -1175,6 +1217,7 @@
                     </g>
                   </svg>
                 </div>
+
                 <div class="category">Series</div>
                 <div class="show-details">
                   <div class="desc">
@@ -1198,7 +1241,12 @@
                   </div>
                 </div>
               </div>
-              <div class="swiper-slide modal-desc" data-series_id="2">
+              <!-- House of Blueface  -->
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="2"
+                data-api_series_id="4"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/25-03-2024/1711337612195-blob.webp"
@@ -1253,6 +1301,7 @@
                     </g>
                   </svg>
                 </div>
+
                 <div class="category">Series</div>
                 <div class="show-details">
                   <div class="desc">
@@ -1276,7 +1325,12 @@
                   </div>
                 </div>
               </div>
-              <div class="swiper-slide modal-desc" data-series_id="3">
+              <!-- Inside the Network  -->
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="3"
+                data-api_series_id="2"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/25-03-2024/1711339288222-blob.webp"
@@ -1331,6 +1385,7 @@
                     </g>
                   </svg>
                 </div>
+
                 <div class="category">Series</div>
                 <div class="show-details">
                   <div class="desc">
@@ -1450,12 +1505,16 @@
       </div>
 
       <div class="content-list-carousel-container">
-        <h1>New Shows Coming Soon</h1>
+        <h1>New Shows Coming Soon July</h1>
         <div class="">
           <div class="new-shows-coming-soon">
             <div class="swiper-wrapper">
               <!-- Fight Club -->
-              <div class="swiper-slide modal-desc" data-series_id="5">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="5"
+                data-api_series_id="1"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail_images/11-04-2024/1712860779079-.webp"
@@ -1517,7 +1576,11 @@
                 </div>
               </div>
               <!-- Going on a Safaree -->
-              <div class="swiper-slide modal-desc" data-series_id="7">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="7"
+                data-api_series_id="3"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail_images/24-03-2024/1711309309775-.webp"
@@ -1548,7 +1611,11 @@
                 </div>
               </div>
               <!-- The House of Blueface -->
-              <div class="swiper-slide modal-desc" data-series_id="2">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="2"
+                data-api_series_id="4"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail_images/08-04-2024/1712534761577-.webp"
@@ -1585,12 +1652,16 @@
       </div>
 
       <div class="content-list-carousel-container">
-        <h1>Welcome to Network - Trailers</h1>
+        <h1>Welcome Network - Trailers</h1>
         <div class="">
           <div class="new-shows-coming-soon">
             <div class="swiper-wrapper">
               <!-- The House of Blueface -->
-              <div class="swiper-slide modal-desc" data-series_id="2">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="2"
+                data-api_series_id="4"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail_images/08-04-2024/1712534761577-.webp"
@@ -1621,7 +1692,11 @@
                 </div>
               </div>
               <!-- Ray J x Sukihana  -->
-              <div class="swiper-slide modal-desc" data-series_id="7">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="7"
+                data-api_series_id="3"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail_images/24-03-2024/1711309309775-.webp"
@@ -1652,7 +1727,11 @@
                 </div>
               </div>
               <!-- Fight Club -->
-              <div class="swiper-slide modal-desc" data-series_id="5">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="5"
+                data-api_series_id="1"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail_images/11-04-2024/1712860779079-.webp"
@@ -1712,7 +1791,7 @@
           </div>
           <div style="margin-top: 24px">
             <p style="font-size: 11px">
-              © Copyrights 2024 by The Tronix Network Inc.
+              © Copyrights 2024 by The Tronix Network Inc. All Rights Reserved.
             </p>
           </div>
         </div>
@@ -1721,6 +1800,7 @@
           <h1 class="footer-content-header">Quick Links</h1>
           <div class="footer-quick-links">
             <a href="https://new.tronixnetwork.com/page/1/about-us">About Us</a>
+
             <a href="https://support.tronixnetwork.com/portal/en/home"
               >Support</a
             >
@@ -2053,11 +2133,9 @@
           </div>
 
           <div class="episode-details">
-            <div class="episode-header">
-              <h1 class="episode-title">Episodes</h1>
-              <select id="season-select"></select>
-            </div>
-
+            <!-- Episode Header, select season -->
+            <div class="episode-header"></div>
+            <!-- Episode List -->
             <div class="episode-list-container"></div>
 
             <div class="more-like-this">
@@ -2318,11 +2396,20 @@
       </div>
     </template>
 
-    <script src="/public/js/application_uix.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- Project CSS Files -->
+    <!-- <script src="/public/js/application_uix.js"></script>
     <script src="/public/js/swiper_controller.js"></script>
     <script src="/public/js/tv_series_carousel.js"></script>
     <script src="/public/js/new_shows_carousel.js"></script>
-    <script src="/public/js/modal.js"></script>
+    <script src="/public/js/modal.js"></script> -->
+
+    <!-- Hosted JavaScript Files -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/application_uix.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/promo_banner_carousel.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/tv_series_carousel.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/new_shows_carousel.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/content_list_carousel.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/modal.js"></script>
   </body>
 </html>

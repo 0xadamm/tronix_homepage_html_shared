@@ -70,8 +70,8 @@
 
 .new-shows-coming-soon .swiper-slide:hover .show-details {
   opacity: 1;
-  transition: all 0.4s ease;
-  transition-delay: 0.3s;
+  transition: all 0.5s ease;
+  transition-delay: 0.4s;
 }
 
 .new-shows-coming-soon .swiper-slide:hover .show-details .desc {
@@ -84,15 +84,17 @@
 }
 
 .new-shows-coming-soon .swiper-slide:hover .show-details .desc .title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
 }
 
 .new-shows-coming-soon .swiper-slide:hover .show-details .meta {
-  font-size: 10px;
-  color: #cdcdcd;
+  font-size: 9px;
+  color: #949494;
+  width: 100%;
+  padding: 0 0 10px 10px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 4px;
 }

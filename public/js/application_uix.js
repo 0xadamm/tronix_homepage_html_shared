@@ -82,9 +82,8 @@ const inputField = document.querySelector("li.search-container input");
 
 inputField.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
-    console.log(e.target.value);
     // Perform any additional actions here
     window.location.href =
-      "https://tronixnetwork.com/search?q=" + e.target.value;
+      "https://new.tronixnetwork.com/search?q=" + e.target.value + "&type=all";
   }
 });

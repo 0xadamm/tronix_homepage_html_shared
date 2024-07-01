@@ -665,7 +665,7 @@ const dStore = {
     },
     url: "https://new.tronixnetwork.com/watch/36",
     trailer_src:
-      "https://vz-55719ac7-6ef.b-cdn.net/5b1c16cf-0a50-4ae0-80e8-7e843815be22/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8 ",
+      "https://vz-55719ac7-6ef.b-cdn.net/5b1c16cf-0a50-4ae0-80e8-7e843815be22/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8",
     trailer_watch_url: "https://new.tronixnetwork.com/watch/21",
   },
   // Inside the Network
@@ -782,6 +782,17 @@ const dStore = {
   },
 };
 
+const videoStore = {
+  0: "https://vz-55719ac7-6ef.b-cdn.net/bdcca7ae-9716-48c3-956c-514f3d28fa36/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  1: "https://vz-55719ac7-6ef.b-cdn.net/6954d732-1fb9-487c-aafd-a4f7a8863519/playlist.m3u8?height=1080&userid=&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  2: "https://vz-55719ac7-6ef.b-cdn.net/0e944819-8244-4a74-b0a4-68caaa9add9e/playlist.m3u8?height=360&userid=&video_version=2.7&platform=tronixnetwork&default_source=2.7",
+  3: "https://vz-55719ac7-6ef.b-cdn.net/79f4c13a-9fd8-41de-8f2d-321619e265e2/playlist.m3u8?height=1080&userid=&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  4: "https://vz-55719ac7-6ef.b-cdn.net/5b1c16cf-0a50-4ae0-80e8-7e843815be22/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  5: "https://vz-55719ac7-6ef.b-cdn.net/77414417-5f1f-433f-955c-f9bffedb4f71/playlist.m3u8?height=1080&userid=&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+};
+
+const backendUrl = "https://new.tronixnetwork.com/api";
+
 let _wasMuted = false;
 
 const TronixApp = {
@@ -820,8 +831,6 @@ const TronixApp = {
   },
 };
 
-const modalDesc = document.querySelectorAll(".modal-desc");
-
 const modalContainer = document.querySelector(".modal-container");
 
 // close modal whenever click outside the modal
@@ -834,7 +843,8 @@ modalContainer.addEventListener("click", (e) => {
     TronixApp.pauseModalVideo();
     document.body.style.overflow = "auto";
 
-    swiper.slides[swiper.activeIndex].children[0].muted = false;
+    // DON'T DELETE THIS
+    /* swiper.slides[swiper.activeIndex].children[0].muted = false; */
 
     const player = videojs("modal-video-player");
 
@@ -844,24 +854,28 @@ modalContainer.addEventListener("click", (e) => {
   }
 });
 
-// const modal = document.querySelector(".modal");
+const container = document.getElementById("contentListBg");
 
-/* MODAL: Open modal */
-modalDesc.forEach((item) => {
-  item.addEventListener("click", (e) => {
+container.addEventListener("click", async (e) => {
+  const item = e.target.closest(".modal-desc");
+  if (item) {
     // for mobile version direct open link
     if (window.innerWidth < 768) {
-      window.location.href = dStore[item.dataset.series_id].url;
+      window.location.href = item.dataset.copy_url;
       return;
     }
+    const series_id = item.dataset.api_series_id;
+
     // disable body scroll
     document.body.style.overflow = "hidden";
 
     // pause all videos
-    document.querySelectorAll("video.banner").forEach((item, index) => {
-      _wasMuted = swiper.slides[swiper.activeIndex].children[0].muted;
-      item.muted = true;
-    });
+
+    // DON'T DELETE THIS
+    /* document.querySelectorAll("video.banner").forEach((item, index) => {
+        _wasMuted = swiper.slides[swiper.activeIndex].children[0].muted;
+        item.muted = true;
+      }); */
 
     // dynamic moodal
     const template = document.getElementById("modal-template");
@@ -870,121 +884,183 @@ modalDesc.forEach((item) => {
 
     // change title
     modal.querySelector(".meta-data h1.title").textContent =
-      dStore[item.dataset.series_id].title;
+      item.dataset.series_name;
+
+    console.log(item.dataset);
 
     // push video url
     const videoPlayer = modal.querySelector("video");
-    const videoSource = modal.querySelector("video source");
-    videoPlayer.poster = dStore[item.dataset.series_id].thumbnail;
-    videoSource.src = dStore[item.dataset.series_id].trailer_src;
+    videoPlayer.poster = item.dataset.video_poster;
 
-    // change poster
+    // TODO: fetch source from api then add it;
+
+    // change thumbnail
     modal
       .querySelector(".poster img")
-      .setAttribute("src", dStore[item.dataset.series_id].thumbnail);
+      .setAttribute("src", item.dataset.thumbnail);
 
     // change description
     modal.querySelector(".details .description-text").textContent =
-      dStore[item.dataset.series_id].description;
+      item.dataset.series_description;
 
     // add link to the action buttons
     const actionButtons = modal.querySelectorAll(".actions .action-btn");
     actionButtons.forEach((_item, index) => {
       _item.addEventListener("click", () => {
         window.location.href =
-          index === 1
-            ? dStore[item.dataset.series_id].url
-            : dStore[item.dataset.series_id].trailer_watch_url;
+          index === 1 ? item.dataset.copy_url : item.dataset.shareable;
       });
     });
 
-    // change seasons
-    const seasons = dStore[item.dataset.series_id].seasons;
-    const seasonsArr = Object.keys(seasons);
+    try {
+      /* GET Season info */
+      fetch(`${backendUrl}/season/list/${series_id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          /**
+           * @var {any[]} seasons
+           */
 
-    const selectEl = modal.querySelector("select#season-select");
-    selectEl.value = seasonsArr[0];
-    seasonsArr.forEach((season, index) => {
-      selectEl.innerHTML += `<option value="${season}">Season ${season}</option>`;
-    });
+          const seasons = data.data.seasons;
+          seasons.sort((a, b) => a.sequence - b.sequence);
+          if (seasons.length > 0) {
+            let seasonOptions = "";
+            seasons.forEach((season, index) => {
+              seasonOptions += `<option value="${season.season_id}" ${index === 0 ? "selected" : ""}>Season ${season.sequence}</option>`;
+            });
+            /* Select-Option has been added */
+            document.querySelector(".modal .episode-header").innerHTML =
+              `<h1 class="episode-title">Episodes</h1>
+                <select id="season-select">${seasonOptions}</select>`;
 
-    selectEl.addEventListener("change", (e) => {
-      console.log(e.target.value);
-      // change episodes
-      const episodes = dStore[item.dataset.series_id].seasons[e.target.value];
+            // fetch the first seasons episodes
+            const season_id = seasons[0].season_id;
 
-      let episode_carrds = "";
+            fetch(
+              `${backendUrl}/season/data?season_id=${season_id}&series_id=${series_id}`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+              },
+            )
+              .then((res) => res.json())
+              .then((data) => {
+                console.log(data.data);
+                // add this data to the modal
+                const episodes = data.data;
+                let episode_cards = "";
 
-      episodes.forEach((episode, index) => {
-        episode_carrds += `<div class="episode-card" onclick="window.location='${
-          episode.url
-        }'" style="cursor: pointer;">
-                  <div>
-                    <h1 class="episode-number">${index + 1}</h1>
-                  </div>
-                  <div>
-                    <div class="episode-image">
-                      <img
-                        src="${episode.thumbnail}"
-                      />
-                    </div>
-                  </div>
-                  <div class="per-episode-details-container">
-                    <div class="per-episode-details">
-                      <h1 class="episode-title">
-                        ${episode.title}
-                      </h1>
-                      <span class="episode-duration">${episode.duration}</span>
-                    </div>
-                    <div>
-                      ${episode.description}
-                    </div>
-                  </div>
-                </div>`;
-      });
-      const _modal = document.querySelector(".modal");
-      _modal.querySelector(".episode-list-container").innerHTML =
-        episode_carrds;
-    });
+                episodes.forEach((episode, index) => {
+                  episode_cards += `
+                  <div class="episode-card" onclick="window.location='${
+                    "https://new.tronixnetwork.com/" + episode.url
+                  }'" style="cursor: pointer;">
+                              <div style="width: 7%">
+                                <h1 class="episode-number">${index + 1}</h1>
+                              </div>
+                              <div>
+                                <div class="episode-image">
+                                  <img
+                                    src="${episode.thumbs[`200x288`]}"
+                                  />
+                                </div>
+                              </div>
+                              <div class="per-episode-details-container">
+                                <div class="per-episode-details">
+                                  <h1 class="episode-title">
+                                    ${episode.title}
+                                  </h1>
+                                  <span class="episode-duration">${episode.duration}</span>
+                                </div>
+                                <div>
+                                  ${episode.description}
+                                </div>
+                              </div>
+                            </div>`;
+                });
 
-    // change episodes
-    const episodes = dStore[item.dataset.series_id].seasons["1"];
+                document.querySelector(
+                  ".modal .episode-list-container",
+                ).innerHTML = episode_cards;
+              });
 
-    let episode_carrds = "";
+            document
+              .querySelector(".modal select#season-select")
+              .addEventListener("change", (e) => {
+                const _season_id = e.target.value;
+                fetch(
+                  `${backendUrl}/season/data?season_id=${_season_id}&series_id=${series_id}`,
+                  {
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                    },
+                  },
+                )
+                  .then((res) => res.json())
+                  .then((data) => {
+                    // clear previous episode list
+                    document.querySelector(
+                      ".modal .episode-list-container",
+                    ).innerHTML = "";
+                    // add this data to the modal
+                    const episodes = data.data;
+                    let episode_cards = "";
 
-    episodes.forEach((episode, index) => {
-      episode_carrds += `<div class="episode-card" onclick="window.location='${
-        episode.url
-      }'" style="cursor: pointer;">
-                <div>
-                  <h1 class="episode-number">${index + 1}</h1>
-                </div>
-                <div>
-                  <div class="episode-image">
-                    <img
-                      src="${episode.thumbnail}"
-                    />
-                  </div>
-                </div>
-                <div class="per-episode-details-container">
-                  <div class="per-episode-details">
-                    <h1 class="episode-title">
-                      ${episode.title}
-                    </h1>
-                    <span class="episode-duration">${episode.duration}</span>
-                  </div>
-                  <div>
-                    ${episode.description}
-                  </div>
-                </div>
-              </div>`;
-    });
+                    episodes.forEach((episode, index) => {
+                      episode_cards += `<div class="episode-card" onclick="window.location='${
+                        "https://new.tronixnetwork.com/" + episode.url
+                      }'" style="cursor: pointer;">
+                                  <div>
+                                    <h1 class="episode-number">${index + 1}</h1>
+                                  </div>
+                                  <div>
+                                    <div class="episode-image">
+                                      <img
+                                        src="${episode.thumbs[`200x288`]}"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="per-episode-details-container">
+                                    <div class="per-episode-details">
+                                      <h1 class="episode-title">
+                                        ${episode.title}
+                                      </h1>
+                                      <span class="episode-duration">${episode.duration}</span>
+                                    </div>
+                                    <div>
+                                      ${episode.description}
+                                    </div>
+                                  </div>
+                                </div>`;
+                    });
 
-    modal.querySelector(".episode-list-container").innerHTML = episode_carrds;
+                    document.querySelector(
+                      ".modal .episode-list-container",
+                    ).innerHTML = episode_cards;
+                  });
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(series_id);
+    }
 
     // change bottom title
-    modal.querySelector(".bottom-title").textContent =
-      dStore[item.dataset.series_id].title;
+    modal.querySelector(".bottom-title").textContent = item.dataset.series_name;
 
     // modal video mute unmute
     const modalMuteUnmuteBtn = modal.querySelector(
@@ -1032,12 +1108,12 @@ modalDesc.forEach((item) => {
         modalContainer.classList.remove("opened");
         modal.classList.remove("opened");
 
-        swiper.slides[swiper.activeIndex].children[0].muted = false;
+        /* swiper.slides[swiper.activeIndex].children[0].muted = false; */
 
         TronixApp.pauseModalVideo();
         document.body.style.overflow = "auto";
         player.dispose();
       });
     });
-  });
+  }
 });
