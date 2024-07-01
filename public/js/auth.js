@@ -55,7 +55,7 @@ const checkIfUserLogin = () => {
     // check if user is not authenticated
     if (res.status !== 200) {
       // redirect to login page
-      window.location.href = "/login";
+      window.location.href = "https:/new.tronixnetwork.com/login";
     }
   });
 };
