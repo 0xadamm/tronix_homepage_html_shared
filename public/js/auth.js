@@ -91,10 +91,10 @@ const signOut = () => {
 // setCookie("tronixnetwork_password_entered", "Apple530!!");
 
 // TODO: Turn on password protection
-// checkPasswordProtection();
+checkPasswordProtection();
 
 // TODO: Turn on local auth token
-// checkIfUserLogin();
+checkIfUserLogin();
 
 // @ts-ignore
 window.checkIfUserLogin = checkIfUserLogin; // make available globally
