@@ -12,14 +12,11 @@ let swiper;
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       const bannerContainer = document.querySelector(
         ".mySwiper .banner-promo-items",
       );
       let itemHtml = "";
       data.data.forEach((item) => {
-        if (item.series_name === "The Cook Off with Princess Love") {
-        }
         itemHtml += `
           <div class="swiper-slide">
             <video
@@ -61,8 +58,6 @@ let swiper;
 
             const trailer_id = currentVideo.getAttribute("data-trailer_id");
 
-            console.log(trailer_id);
-
             currentVideo.innerHTML = `
               <source
                 type="video/mp4"
@@ -91,8 +86,8 @@ let swiper;
       //   }
       // });
     })
-    .catch((error) => {
-      console.log(error);
+    .catch(() => {
+      // TODO: Handle error
     });
 })();
 
@@ -104,7 +99,6 @@ const toggleMute = (e) => {
   }
 
   swiper.slides.forEach((item) => {
-    // console.log(item.children[0].muted);
     item.children[0].muted = !item.children[0].muted;
   });
 };

@@ -1,44 +1,51 @@
-const signOutUrl = "https://new.tronixnetwork.com/api/users/kick";
+const signOutUrl = "https://new.tronixnetwork.com/api/users/signout";
 
-const checkAuthUrl = "https://new.tronixnetwork.com/api/users/check_login";
+const checkLoginUrl = "https://new.tronixnetwork.com/api/users/check_login";
 
-const SignOut = () => {
-  let userId = localStorage.getItem("userId");
+const signInUrl = "https://new.tronixnetwork.com/api/users/signin";
 
-  if (userId === null) {
-    // TODO: get user id from somewhere!!!
-    userId = "default user id";
-  }
+const getCookies = () => {
+  const cookies = document.cookie.split("; ");
+  const cookieObject = {};
 
-  // TODO: get api key from somewhere!!!
-  let apiKey = "ZDdjODM2ODRhODcyMzg4YWFmMWE1ODc0YjBkZTBiY2U=";
-
-  const formData = new FormData();
-  formData.append("userId", userId);
-  formData.append("sso", "true");
-
-  // make api call to run kick our user
-  fetch(`${signOutUrl}`, {
-    method: "POST",
-    headers: {
-      APIKEY: apiKey,
-    },
-    body: formData,
-  }).then((res) => {
-    if (res.status === 200) {
-      // remove user token from local storage
-      localStorage.removeItem("userToken");
-      // remove user email from local storage
-      localStorage.removeItem("userEmail");
-      // redirect to login page
-      window.location.href = "/login";
-    }
-    // TODO: handle error
+  cookies.forEach((cookie) => {
+    const [name, value] = cookie.split("=");
+    cookieObject[name] = decodeURIComponent(value);
   });
+  return cookieObject;
 };
 
-const AuthCheck = () => {
-  fetch(`${checkAuthUrl}`, {
+const setCookie = (name, value) => {
+  document.cookie = `${name}=${value}; path=/;`;
+};
+
+const deleteCookie = (name) => {
+  document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+};
+
+const checkPasswordProtection = () => {
+  let cookies = getCookies();
+  let { tronixnetwork_password_entered } = cookies;
+
+  if (!tronixnetwork_password_entered) {
+    window.location.href =
+      "https://new.tronixnetwork.com/passwordProtected?redirected=true";
+  }
+};
+
+// ? check if tronixnetworkauthtokenlocal is available ?
+const checkLocalAuthToken = () => {
+  let cookies = getCookies();
+  let { tronixnetworkauthtokenlocal } = cookies;
+
+  if (!tronixnetworkauthtokenlocal) {
+    window.location.href =
+      "https://new.tronixnetwork.com/passwordProtected?redirected=true";
+  }
+};
+
+const checkIfUserLogin = () => {
+  fetch(`${checkLoginUrl}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -53,17 +60,44 @@ const AuthCheck = () => {
   });
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Retrieve data from local storage
-  const username = localStorage.getItem("vodlixTronixUsername");
+const signIn = (email, password) => {
+  fetch(`${signInUrl}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      email,
+      password,
+    }),
+  });
+};
 
-  // Check if data exists in local storage
-  if (username) {
-    // @ts-ignore
-    document.getElementById("vodlixTronixUsername").textContent = username;
-  }
-});
+signIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
 
-// Make sure the SignOut function is available globally
+const signOut = () => {
+  // make api call to run kick our user
+  fetch(`${signOutUrl}`, {
+    method: "POST",
+  }).then((res) => {
+    if (res.status === 200) {
+      window.location.href = "/login";
+    }
+    // TODO: handle error
+  });
+};
+
+// setCookie("tronixnetwork_password_entered", "Apple530!!");
+
+// TODO: Turn on password protection
+// checkPasswordProtection();
+
+// TODO: Turn on local auth token
+// checkIfUserLogin();
+
 // @ts-ignore
-window.SignOut = SignOut;
+window.checkIfUserLogin = checkIfUserLogin; // make available globally
+
+// @ts-ignore
+window.signOut = signOut; // make available globally

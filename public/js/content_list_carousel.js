@@ -50,7 +50,6 @@
         // load content items
         let itemHtml = "";
         content_items.forEach((_item) => {
-          console.log(_item);
           itemHtml += `
                         <div
                             class="swiper-slide modal-desc"
@@ -61,12 +60,19 @@
                             data-series_description="${_item.series_description}"
                             data-thumbnail="${_item.thumbs["200x288"]}"
                             data-video_poster="${_item.thumbs["768x432"]}"
+                            data-copy_url="${_item.copy_url}"
+                            data-shareable="${_item.shareable}"
+                            data-is_series="${_item.is_series}"
                         >
                             <div class="show-image">
                             <img
                                 src="${isPortrait ? _item.portrait_thumbs.original : _item.thumbs.original}"
                             />
                             </div>
+                            ${
+                              _item.is_premium === "no"
+                                ? ""
+                                : `
                             <div class="premium-badge">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -117,28 +123,38 @@
                                 </g>
                               </svg>
                             </div>
-                            <div class="category">Series</div>
+                            `
+                            }
+                            ${isPortrait ? `<div class="category">${_item.videoid ? "Video" : "Series"}</div>` : ""}
                             <div class="show-details">
                             <div class="desc">
                                 <span class="title">${isPortrait ? `${(_item.series_name || _item.title).substr(0, 14)}${(_item.series_name || _item.title).length > 14 ? "..." : ""}` : `${(_item.series_name || _item.title).substr(0, 24)}${(_item.series_name || _item.title).length > 24 ? "..." : ""}`}</span>
 
-                                <div class="action-btn">
-                                <div>
-                                    <div class="bg-add"></div>
-                                </div>
-                                <div>
-                                    <div class="bg-share"></div>
-                                </div>
-                                </div>
+                                ${
+                                  isPortrait
+                                    ? `<div class="action-btn">
+                                  <div>
+                                      <div class="bg-add"></div>
+                                  </div>
+                                  <div>
+                                      <div class="bg-share"></div>
+                                  </div>
+                                </div>`
+                                    : ``
+                                }
                             </div>
-                            <div class="meta">
-                                <span>1 Season</span>
-                                <span>•</span>
-                                <span>Reality</span>
-                                <span>•</span>
-                                <span>English</span>
-                            </div>
-                            </div>
+                            ${
+                              isPortrait
+                                ? `<div class="meta" data-series_id="${_item.series_id}">
+                                    <span class="season_count"></span>
+                                    <span>•</span>
+                                    <span class="category_name">Reality</span>
+                                    <span>•</span>
+                                    <span class="language">English</span>
+                                  </div>`
+                                : ""
+                            }
+                          </div>
                         </div>
                 `;
         });
@@ -154,6 +170,44 @@
                 </div>
             </div>
           `;
+
+        // add hover effect of content cards
+        const swiperSlide = document.querySelectorAll(".swiper-slide");
+
+        swiperSlide.forEach((item, index) => {
+          item.addEventListener("mouseenter", async () => {
+            const season_count_el = item.querySelector(".season_count");
+
+            if (season_count_el?.dataset.is_loaded) {
+              return;
+            }
+
+            // fetch season data
+            const series_id = item.dataset.api_series_id;
+            const season_data = await fetch(
+              `${backendUrl}/season/list/${series_id}`,
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+              },
+            );
+
+            const seasons = await season_data.json();
+            const season_count = seasons.data?.seasons?.length;
+            if (season_count > 0) {
+              item.querySelector(".season_count").innerHTML =
+                `${season_count} Season${season_count > 1 ? "s" : ""}`;
+            } else {
+              item.querySelector(".season_count").nextElementSibling.remove();
+              item.querySelector(".season_count").innerHTML = "";
+            }
+            season_count_el.dataset.is_loaded = 1;
+          });
+        });
+
         // init swiper
         swiper = new Swiper(
           isPortrait ? ".tv-series" : ".new-shows-coming-soon",

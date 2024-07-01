@@ -665,7 +665,7 @@ const dStore = {
     },
     url: "https://new.tronixnetwork.com/watch/36",
     trailer_src:
-      "https://vz-55719ac7-6ef.b-cdn.net/5b1c16cf-0a50-4ae0-80e8-7e843815be22/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8 ",
+      "https://vz-55719ac7-6ef.b-cdn.net/5b1c16cf-0a50-4ae0-80e8-7e843815be22/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8",
     trailer_watch_url: "https://new.tronixnetwork.com/watch/21",
   },
   // Inside the Network
@@ -782,6 +782,15 @@ const dStore = {
   },
 };
 
+const videoStore = {
+  0: "https://vz-55719ac7-6ef.b-cdn.net/bdcca7ae-9716-48c3-956c-514f3d28fa36/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  1: "https://vz-55719ac7-6ef.b-cdn.net/6954d732-1fb9-487c-aafd-a4f7a8863519/playlist.m3u8?height=1080&userid=&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  2: "https://vz-55719ac7-6ef.b-cdn.net/0e944819-8244-4a74-b0a4-68caaa9add9e/playlist.m3u8?height=360&userid=&video_version=2.7&platform=tronixnetwork&default_source=2.7",
+  3: "https://vz-55719ac7-6ef.b-cdn.net/79f4c13a-9fd8-41de-8f2d-321619e265e2/playlist.m3u8?height=1080&userid=&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  4: "https://vz-55719ac7-6ef.b-cdn.net/5b1c16cf-0a50-4ae0-80e8-7e843815be22/playlist.m3u8?height=1080&userid=3783&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+  5: "https://vz-55719ac7-6ef.b-cdn.net/77414417-5f1f-433f-955c-f9bffedb4f71/playlist.m3u8?height=1080&userid=&video_version=2.8&platform=tronixnetwork&default_source=2.8",
+};
+
 const backendUrl = "https://new.tronixnetwork.com/api";
 
 let _wasMuted = false;
@@ -852,7 +861,7 @@ container.addEventListener("click", async (e) => {
   if (item) {
     // for mobile version direct open link
     if (window.innerWidth < 768) {
-      window.location.href = dStore[item.dataset.series_id].url;
+      window.location.href = item.dataset.copy_url;
       return;
     }
     const series_id = item.dataset.api_series_id;
@@ -899,9 +908,7 @@ container.addEventListener("click", async (e) => {
     actionButtons.forEach((_item, index) => {
       _item.addEventListener("click", () => {
         window.location.href =
-          index === 1
-            ? dStore[item.dataset.series_id].url
-            : dStore[item.dataset.series_id].trailer_watch_url;
+          index === 1 ? item.dataset.copy_url : item.dataset.shareable;
       });
     });
 
@@ -917,12 +924,11 @@ container.addEventListener("click", async (e) => {
         .then((res) => res.json())
         .then((data) => {
           /**
-           * @var {Array<any>} seasons
+           * @var {any[]} seasons
            */
 
           const seasons = data.data.seasons;
           seasons.sort((a, b) => a.sequence - b.sequence);
-          console.log(seasons);
           if (seasons.length > 0) {
             let seasonOptions = "";
             seasons.forEach((season, index) => {
@@ -954,7 +960,8 @@ container.addEventListener("click", async (e) => {
                 let episode_cards = "";
 
                 episodes.forEach((episode, index) => {
-                  episode_cards += `<div class="episode-card" onclick="window.location='${
+                  episode_cards += `
+                  <div class="episode-card" onclick="window.location='${
                     "https://new.tronixnetwork.com/" + episode.url
                   }'" style="cursor: pointer;">
                               <div style="width: 7%">
@@ -1053,8 +1060,7 @@ container.addEventListener("click", async (e) => {
     }
 
     // change bottom title
-    modal.querySelector(".bottom-title").textContent =
-      dStore[item.dataset.series_id].title;
+    modal.querySelector(".bottom-title").textContent = item.dataset.series_name;
 
     // modal video mute unmute
     const modalMuteUnmuteBtn = modal.querySelector(

@@ -70,29 +70,32 @@
 
 .tv-series .swiper-slide:hover .show-details {
   opacity: 1;
-  transition: all 0.4s ease;
-  transition-delay: 0.3s;
+  transition: all 0.5s ease;
+  transition-delay: 0.4s;
 }
 
 .tv-series .swiper-slide:hover .show-details .desc {
   height: 36px;
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
   align-items: center;
   gap: 4px;
   padding: 0px 10px;
 }
 
 .tv-series .swiper-slide:hover .show-details .desc .title {
+  white-space: nowrap;
   font-size: 13px;
   font-weight: 500;
 }
 
 .tv-series .swiper-slide:hover .show-details .meta {
   font-size: 10px;
-  color: #cdcdcd;
+  color: #a7a7a7;
+  width: 100%;
+  padding: 0 0 10px 10px;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
   gap: 4px;
 }
