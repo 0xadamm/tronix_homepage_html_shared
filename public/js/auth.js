@@ -51,12 +51,6 @@ const checkIfUserLogin = () => {
       "Content-Type": "application/json",
       Accept: "application/json",
     },
-  }).then((res) => {
-    // check if user is not authenticated
-    if (res.status !== 200) {
-      // redirect to login page
-      window.location.href = "https:/new.tronixnetwork.com/login";
-    }
   });
 };
 
