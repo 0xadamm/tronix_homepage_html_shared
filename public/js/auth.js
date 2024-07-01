@@ -88,7 +88,7 @@ const signOut = () => {
 // checkPasswordProtection();
 
 // TODO: Turn on local auth token
-// checkIfUserLogin();
+checkIfUserLogin();
 
 // @ts-ignore
 window.checkIfUserLogin = checkIfUserLogin; // make available globally
