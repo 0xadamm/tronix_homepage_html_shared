@@ -60,7 +60,7 @@ const checkIfUserLogin = () => {
   });
 };
 
-const signIn = (email, password) => {
+const signIn = (username, password) => {
   fetch(`${signInUrl}`, {
     method: "POST",
     headers: {
@@ -68,7 +68,7 @@ const signIn = (email, password) => {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      email,
+      username,
       password,
     }),
   });
