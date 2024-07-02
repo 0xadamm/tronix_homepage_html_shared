@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tronix Network - Home</title>
 
+    <!-- TODO: Turn on Authcheck   -->
+    <!-- <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        AuthCheck(); // Call the AuthCheck function when the page loads
+      });
+    </script> -->
     <script src="https://cdn.jsdelivr.net/gh/arslancb/beeexplayer@master/beeexplayer.min.js"></script>
     <link
       rel="icon"
@@ -23,42 +29,71 @@
     />
   </head>
   <body>
-    <!-- Auth Script  -->
     <script src="https://tronix-homepage-html.vercel.app/public/js/auth.js"></script>
 
-    <!-- Vercel Hosted Style Sheets  -->
-    <link rel="stylesheet" href="https://tronix-homepage-html.vercel.app/public/css/main_styles.css" />
+    <!-- Project CSS links -->
 
-    <link rel="stylesheet" href="https://tronix-homepage-html.vercel.app/public/css/mobile_side_menu.css" />
+    <!-- <link rel="stylesheet" href="/public/css/main_styles.css" /> -->
 
-    <link rel="stylesheet" href="https://tronix-homepage-html.vercel.app/public/css/carousel_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/mobile_side_menu.css" /> -->
 
-    <link rel="stylesheet" href="https://tronix-homepage-html.vercel.app/public/css/tv_series_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/carousel_styles.css" /> -->
 
-    <link rel="stylesheet" href="https://tronix-homepage-html.vercel.app/public/css/shows_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/tv_series_styles.css" /> -->
 
-    <link rel="stylesheet" href="https://tronix-homepage-html.vercel.app/public/css/footer_styles.css" />
+    <!-- <link rel="stylesheet" href="/public/css/shows_styles.css" /> -->
+
+    <!-- <link rel="stylesheet" href="/public/css/footer_styles.css" /> -->
 
     <!-- Vodlix CSS links  -->
-    <!-- 
+
     <link
-        href="https://new.tronixnetwork.com/styles/default/theme/css/swiper-bundle.min.css?cbuster=1717576490"
-        rel="stylesheet"
-      />
-      <link
-        href="https://new.tronixnetwork.com/styles/default/theme/css/datePicker.css?cbuster=1717576490"
-        rel="stylesheet"
-      />
-      <link
-        href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/custom.css?cbuster=1717576490"
-        rel="stylesheet"
-      />
-      <link
-        href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/more_custom.css?cbuster=1717576490"
-        rel="stylesheet"
-      /> -->
+      href="https://new.tronixnetwork.com/styles/default/theme/css/swiper-bundle.min.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
+    <link
+      href="https://new.tronixnetwork.com/styles/default/theme/css/datePicker.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
+    <link
+      href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/custom.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
+    <link
+      href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/more_custom.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
 
+    <!-- Vercel CSS links  -->
 
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/main_styles.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/mobile_side_menu.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/carousel_styles.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/tv_series_styles.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/shows_styles.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/footer_styles.css"
+    />
 
     <header id="sticky-header">
       <div class="header">
@@ -268,7 +303,10 @@
                     alt=""
                   />
                 </div>
-                <div id="user" style="font-size: 14px; font-weight: 500">
+                <div
+                  id="vodlixTronixUsername"
+                  style="font-size: 14px; font-weight: 500"
+                >
                   &lt;username&gt;
                 </div>
               </div>
@@ -462,7 +500,7 @@
                   </li>
                   <!-- Sign Out -->
                   <li
-                    onclick="signOut()"
+                    onclick="SignOut()"
                     style="
                       width: 100%;
                       padding: 6px 8px 12px 6px;
@@ -1115,14 +1153,17 @@
     <div class="sticky-bg"></div>
 
     <section id="contentListBg" class="content-list">
-      <!-- Tv Shows -->
       <div class="content-list-carousel-container">
         <h1>TV Shows</h1>
         <div class="">
           <div class="tv-series">
             <div class="swiper-wrapper">
               <!-- The Cook Off  -->
-              <div class="swiper-slide modal-desc" data-api_series_id="5">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="1"
+                data-api_series_id="5"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/20-06-2024/1718859311045-blob.webp"
@@ -1201,7 +1242,11 @@
                 </div>
               </div>
               <!-- House of Blueface  -->
-              <div class="swiper-slide modal-desc" data-api_series_id="4">
+              <div
+                class="swiper-slide modal-desc"
+                data-series_id="2"
+                data-api_series_id="4"
+              >
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/25-03-2024/1711337612195-blob.webp"
@@ -1370,7 +1415,6 @@
         </div>
       </div>
 
-      <!-- Music Videos -->
       <div class="content-list-carousel-container">
         <h1>Music Videos</h1>
         <div class="">
@@ -1460,7 +1504,6 @@
         </div>
       </div>
 
-      <!-- New Shows Coming Soon July -->
       <div class="content-list-carousel-container">
         <h1>New Shows Coming Soon July</h1>
         <div class="">
@@ -1607,7 +1650,7 @@
           </div>
         </div>
       </div>
-      <!-- Welcome Network - Trailers -->
+
       <div class="content-list-carousel-container">
         <h1>Welcome Network - Trailers</h1>
         <div class="">
@@ -1961,7 +2004,9 @@
         <div class="description">
           <div class="basic-info">
             <div class="poster">
-              <img src="" />
+              <img
+                src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/30-04-2024/1714492654752-blob.webp"
+              />
             </div>
             <div class="meta-data">
               <h1 class="title">This is Title</h1>
@@ -2351,9 +2396,19 @@
       </div>
     </template>
 
-    <script src="https://tronix-homepage-html.vercel.app/public/js/application_uix.js"></script>
+    <!-- Project CSS Files -->
+    <!-- <script src="/public/js/application_uix.js"></script>
+    <script src="/public/js/swiper_controller.js"></script>
+    <script src="/public/js/tv_series_carousel.js"></script>
+    <script src="/public/js/new_shows_carousel.js"></script>
+    <script src="/public/js/modal.js"></script> -->
+
+    <!-- Hosted JavaScript Files -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/application_uix.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/promo_banner_carousel.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/tv_series_carousel.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/new_shows_carousel.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/content_list_carousel.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/modal.js"></script>
   </body>

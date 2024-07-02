@@ -796,12 +796,18 @@ const backendUrl = "https://new.tronixnetwork.com/api";
 let _wasMuted = false;
 
 const TronixApp = {
-  pauseAllVideo: () => {
-    // pause other videos
-    document.querySelectorAll(".swiper-slide video").forEach((item) => {
-      item.currentTime = 0;
-      item.pause();
-    });
+  muteBannerVideo: () => {
+    const swiper = window.bannerCarousel;
+    const currentVideo = swiper.slides[swiper.activeIndex].children[0];
+    const banner_player = videojs(currentVideo.id);
+    banner_player.muted(true);
+  },
+
+  unmuteBannerVideo: () => {
+    const swiper = window.bannerCarousel;
+    const currentVideo = swiper.slides[swiper.activeIndex].children[0];
+    const banner_player = videojs(currentVideo.id);
+    banner_player.muted(false);
   },
 
   startModalVideo: () => {
@@ -850,6 +856,7 @@ modalContainer.addEventListener("click", (e) => {
 
     player.ready(function () {
       player.dispose();
+      TronixApp.unmuteBannerVideo;
     });
   }
 });
@@ -869,13 +876,16 @@ container.addEventListener("click", async (e) => {
     // disable body scroll
     document.body.style.overflow = "hidden";
 
-    // pause all videos
+    /* Banner Video Mute */
+    const swiper = window.bannerCarousel;
+    const currentVideo = swiper.slides[swiper.activeIndex].children[0];
+    const banner_player = videojs(currentVideo.id);
+    banner_player.muted(true);
 
-    // DON'T DELETE THIS
-    /* document.querySelectorAll("video.banner").forEach((item, index) => {
-        _wasMuted = swiper.slides[swiper.activeIndex].children[0].muted;
-        item.muted = true;
-      }); */
+    document.querySelectorAll("video.banner").forEach((item, index) => {
+      _wasMuted = swiper.slides[swiper.activeIndex].children[0].muted;
+      item.muted = true;
+    });
 
     // dynamic moodal
     const template = document.getElementById("modal-template");
@@ -891,8 +901,6 @@ container.addEventListener("click", async (e) => {
     // push video url
     const videoPlayer = modal.querySelector("video");
     videoPlayer.poster = item.dataset.video_poster;
-
-    // TODO: fetch source from api then add it;
 
     // change thumbnail
     modal
@@ -1086,12 +1094,29 @@ container.addEventListener("click", async (e) => {
     modalElement.classList.add("opened");
 
     // start modal video
-    // TronixApp.startModalVideo();
+
+    const response = await fetch(
+      `${backendUrl}/v2/videos/${item.dataset.videoid}/playable`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      },
+    );
+    let video_url = await response.json();
+    video_url = video_url.data[0].media[0];
 
     const player = videojs("modal-video-player", {
       controls: false,
       autoplay: true,
       preload: "auto",
+    });
+
+    player.src({
+      src: video_url,
+      type: "application/x-mpegURL",
     });
 
     player.ready(function () {

@@ -7,7 +7,7 @@ const phpidCookieValue = "9fbjvlk011tbjeho70hp2rctc4";
 const sesssaltCookie = "tronixnetworksesssalt";
 const sesssaltCookieValue = "7bb6b2de";
 
-// ** Cookie functions **
+// ** Helper Functions
 const getCookies = () => {
   const cookies = document.cookie.split("; ");
   const cookieObject = {};
@@ -62,26 +62,7 @@ const checkPasswordProtection = () => {
   }
 };
 
-// ** Auth functions **
-
-const localSignIn = (username, password) => {
-  fetch(`${signInUrl}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-  }).then((res) => {
-    checkAndSetCookie(phpidCookie, phpidCookieValue);
-    checkAndSetCookie(sesssaltCookie, sesssaltCookieValue);
-  });
-};
-// localSignIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
-
+// ** Utility Functions
 const checkIfUserLogin = () => {
   fetch(`${checkLoginUrl}`, {
     method: "GET",
@@ -95,12 +76,30 @@ const checkIfUserLogin = () => {
       const sesssaltCookieExists = checkCookieByName(sesssaltCookie);
 
       if (res.status !== 200 && !phpidCookieExists && !sesssaltCookieExists) {
+        // redirect to login page
         window.location.href = "https://new.tronixnetwork.com/login";
       }
     })
     .catch((error) => {
-      return error;
+      console.error("Error checking login status:", error);
     });
+};
+
+const localSignIn = (username, password) => {
+  fetch(`${signInUrl}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+  }).then(() => {
+    checkAndSetCookie(phpidCookie, phpidCookieValue);
+    checkAndSetCookie(sesssaltCookie, sesssaltCookieValue);
+  });
 };
 
 const signOut = () => {
@@ -109,22 +108,24 @@ const signOut = () => {
     method: "POST",
   }).then((res) => {
     if (res.status === 200) {
-      deleteCookie(phpidCookie);
-      deleteCookie(sesssaltCookie);
-      window.location.href = "/login";
+      // delete all cookies
+      deleteCookie("tronixnetworkphpid");
+      deleteCookie("tronixnetworksesssalt");
+      window.location.href = "https://new.tronixnetwork.com/login";
     }
     // TODO: handle error
   });
 };
 
-// setCookie("tronixnetwork_password_entered", "Apple530!!");
+// signIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
+
+// checkIfUserLogin();
+
+// TODO: Turn on password protection
 // checkPasswordProtection();
 
 // TODO: Turn on local auth token
-checkIfUserLogin();
-
-// @ts-ignore
-window.checkIfUserLogin = checkIfUserLogin; // make available globally
+// checkIfUserLogin();
 
 // @ts-ignore
 window.signOut = signOut; // make available globally
