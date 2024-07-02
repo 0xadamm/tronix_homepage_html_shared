@@ -23,6 +23,8 @@
     />
   </head>
   <body>
+    <script src="/public/js/auth.js"></script>
+
     <link rel="stylesheet" href="/public/css/main_styles.css" />
 
     <link rel="stylesheet" href="/public/css/mobile_side_menu.css" />
@@ -36,29 +38,32 @@
     <link rel="stylesheet" href="/public/css/footer_styles.css" />
 
     <!-- Vodlix CSS links  -->
-    <!-- 
-    <link
-        href="https://new.tronixnetwork.com/styles/default/theme/css/swiper-bundle.min.css?cbuster=1717576490"
-        rel="stylesheet"
-      />
-      <link
-        href="https://new.tronixnetwork.com/styles/default/theme/css/datePicker.css?cbuster=1717576490"
-        rel="stylesheet"
-      />
-      <link
-        href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/custom.css?cbuster=1717576490"
-        rel="stylesheet"
-      />
-      <link
-        href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/more_custom.css?cbuster=1717576490"
-        rel="stylesheet"
-      /> -->
 
-    <!-- CSS links  -->
-    <!-- 
     <link
+      href="https://new.tronixnetwork.com/styles/default/theme/css/swiper-bundle.min.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
+    <link
+      href="https://new.tronixnetwork.com/styles/default/theme/css/datePicker.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
+    <link
+      href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/custom.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
+    <link
+      href="https://new.tronixnetwork.com/u/tronixnetwork/files/themes/default/more_custom.css?cbuster=1717576490"
+      rel="stylesheet"
+    />
+
+    <!-- Vercel Hosted CSS links  -->
+    <!-- <link
       rel="stylesheet"
       href="https://tronix-homepage-html.vercel.app/public/css/main_styles.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://tronix-homepage-html.vercel.app/public/css/mobile_side_menu.css"
     />
 
     <link
@@ -79,8 +84,7 @@
     <link
       rel="stylesheet"
       href="https://tronix-homepage-html.vercel.app/public/css/footer_styles.css"
-    /> 
-    -->
+    /> -->
 
     <header id="sticky-header">
       <div class="header">
@@ -1127,8 +1131,11 @@
         <div class="banner-promo-player-controls">
           <div
             onclick="toggleMute(this)"
-            class="banner-promo-player-controls-mute-unmute bg-unmuted"
-          ></div>
+            id="myTooltip"
+            class="tooltip banner-promo-player-controls-mute-unmute bg-unmuted"
+          >
+            <span class="tooltiptext" id="myTooltipText">Click to unmute!</span>
+          </div>
         </div>
       </div>
     </section>
@@ -2370,11 +2377,17 @@
       </div>
     </template>
 
-    <script src="/public/js/auth.js"></script>
-    <script src="/public/js/application_uix.js"></script>
+    <!-- JavaScript Files  -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="/public/js/promo_banner_carousel.js"></script>
+    <script src="/public/js/application_uix.js"></script>
     <script src="/public/js/content_list_carousel.js"></script>
     <script src="/public/js/modal.js"></script>
+    <script src="/public/js/promo_banner_carousel.js"></script>
+    <!-- Vercel Hosted JavaScript Files  -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/application_uix.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/content_list_carousel.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/modal.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/promo_banner_carousel.js"></script> -->
   </body>
 </html>
