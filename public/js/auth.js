@@ -46,12 +46,22 @@ const checkCookieByName = (cookieName) => {
 
 // Todo: create function that {checkAndSetCookie} checks if cookie exists before setting it 
 
-
+const checkAndSetCookie = (name, value) => {
+  let cookiesObject = getCookies();
+  if (!cookiesObject?.[name]) {
+    console.log("Cookies not found")
+    setCookie(name, value);
+  }
+};
 
 // Todo: create function that {checkAndDeleteCookie} checks if cookie exists before deleting it
 
-
-
+const checkAndDeleteCookie = (name) => {
+  let cookiesObject = getCookies();
+  if (!cookiesObject?.[name]) {
+    deleteCookie(name);
+  }
+};
 
    const checkPasswordProtection = () => {
   let cookies = getCookies();
