@@ -125,7 +125,8 @@ const signOut = () => {
     method: "POST",
   }).then((res) => {
     if (res.status === 200) {
-      // Todo: delete necessary auth cookies for logout
+      deleteCookie(phpidCookie);
+      deleteCookie(sesssaltCookie);
       window.location.href = "/login";
     }
     // TODO: handle error
