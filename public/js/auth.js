@@ -62,17 +62,6 @@ const checkPasswordProtection = () => {
   }
 };
 
-// ? check if tronixnetworkauthtokenlocal is available ?
-const checkLocalAuthToken = () => {
-  let cookies = getCookies();
-  let { tronixnetworkauthtokenlocal } = cookies;
-
-  if (!tronixnetworkauthtokenlocal) {
-    window.location.href =
-      "https://new.tronixnetwork.com/passwordProtected?redirected=true";
-  }
-};
-
 // ** Auth functions **
 
 const localSignIn = (username, password) => {
@@ -129,12 +118,10 @@ const signOut = () => {
 };
 
 // setCookie("tronixnetwork_password_entered", "Apple530!!");
-
-// TODO: Turn on password protection
 // checkPasswordProtection();
 
 // TODO: Turn on local auth token
-// checkIfUserLogin();
+checkIfUserLogin();
 
 // @ts-ignore
 window.checkIfUserLogin = checkIfUserLogin; // make available globally
