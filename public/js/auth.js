@@ -19,9 +19,16 @@ const setCookie = (name, value) => {
   document.cookie = `${name}=${value}; path=/;`;
 };
 
+
 const deleteCookie = (name) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 };
+
+
+// Todo: create function that {checkCookieByName} checks if cookie exists by name
+// Todo: create function that {checkAndSetCookie} checks if cookie exists before setting it 
+// Todo: create function that {checkAndDeleteCookie} checks if cookie exists before deleting it
+   
 
 const checkPasswordProtection = () => {
   let cookies = getCookies();
@@ -74,7 +81,7 @@ const signIn = (email, password) => {
   });
 };
 
-signIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
+// signIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
 
 const signOut = () => {
   // make api call to run kick our user
@@ -91,10 +98,10 @@ const signOut = () => {
 // setCookie("tronixnetwork_password_entered", "Apple530!!");
 
 // TODO: Turn on password protection
-checkPasswordProtection();
+// checkPasswordProtection();
 
 // TODO: Turn on local auth token
-checkIfUserLogin();
+// checkIfUserLogin();
 
 // @ts-ignore
 window.checkIfUserLogin = checkIfUserLogin; // make available globally
