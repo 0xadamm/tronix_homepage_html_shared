@@ -1,7 +1,5 @@
 const signOutUrl = "https://new.tronixnetwork.com/api/users/signout";
-
 const checkLoginUrl = "https://new.tronixnetwork.com/api/users/check_login";
-
 const signInUrl = "https://new.tronixnetwork.com/api/users/signin";
 
 const phpidCookie = "tronixnetworkphpid";
@@ -9,6 +7,7 @@ const phpidCookieValue = "9fbjvlk011tbjeho70hp2rctc4";
 const sesssaltCookie = "tronixnetworksesssalt";
 const sesssaltCookieValue = "7bb6b2de";
 
+// ** Cookie functions **
 const getCookies = () => {
   const cookies = document.cookie.split("; ");
   const cookieObject = {};
@@ -28,31 +27,27 @@ const deleteCookie = (name) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 };
 
-
-// Todo: create function that {checkCookieByName} checks if cookie exists by name
 const checkCookieByName = (cookieName) => {
   let cookies = getCookies();
   let cookieValue = cookies[cookieName];
 
   if (!cookieValue) {
-    console.log("Cookie not found")
+    console.log("Cookie not found");
     return false; // cookie not found
   } else {
-    console.log("Cookie found")
+    console.log("Cookie found");
     return true; // cookie found
   }
 };
 
-// Todo: create function that {checkAndSetCookie} checks if cookie exists before setting it 
 const checkAndSetCookie = (name, value) => {
   let cookiesObject = getCookies();
   if (!cookiesObject?.[name]) {
-    console.log("Cookies not found")
+    console.log("Cookies not found");
     setCookie(name, value);
   }
 };
 
-// Todo: create function that {checkAndDeleteCookie} checks if cookie exists before deleting it
 const checkAndDeleteCookie = (name) => {
   let cookiesObject = getCookies();
   if (!cookiesObject?.[name]) {
@@ -81,23 +76,9 @@ const checkLocalAuthToken = () => {
   }
 };
 
-const checkIfUserLogin = () => {
-  fetch(`${checkLoginUrl}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  }).then((res) => {
-    // Todo: if necessary auth cookies don't exist route to login page
-    if (res.status !== 200) {
-      // redirect to login page
-      window.location.href = "/login";
-    }
-  });
-};
+// ** Auth functions **
 
-const signIn = (email, password) => {
+const localSignIn = (username, password) => {
   fetch(`${signInUrl}`, {
     method: "POST",
     headers: {
@@ -105,14 +86,38 @@ const signIn = (email, password) => {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      email,
+      username,
       password,
     }),
-    // Todo: set necessary auth cookies for login 
+  }).then((res) => {
+    checkAndSetCookie(phpidCookie, phpidCookieValue);
+    checkAndSetCookie(sesssaltCookie, sesssaltCookieValue);
   });
 };
+// localSignIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
 
-// signIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
+const checkIfUserLogin = () => {
+  fetch(`${checkLoginUrl}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  })
+    .then((res) => {
+      const phpidCookieExists = checkCookieByName(phpidCookie);
+      const sesssaltCookieExists = checkCookieByName(sesssaltCookie);
+
+      if (res.status !== 200 && !phpidCookieExists && !sesssaltCookieExists) {
+        console.log("User not logged in");
+        // redirect to login page
+        window.location.href = "https://new.tronixnetwork.com/login";
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking login status:", error);
+    });
+};
 
 const signOut = () => {
   // make api call to run kick our user
