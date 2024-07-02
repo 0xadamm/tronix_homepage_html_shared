@@ -45,6 +45,30 @@
   object-position: center;
   left: 50%;
   transform: translateX(-50%);
+  top: 0px;
+}
+[id^="banner-video-"] {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+section#banner-promo-player:before {
+  content: "";
+  background: transparent
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.6196078431) 0%,
+      rgba(0, 0, 0, 0.2) 50%,
+      rgba(0, 0, 0, 0.0705882353) 77%,
+      rgba(0, 0, 0, 0) 100%
+    )
+    0% 0% no-repeat padding-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  z-index: 2;
 }
 
 .swiper-pagination {
