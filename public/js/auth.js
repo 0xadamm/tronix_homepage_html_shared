@@ -32,10 +32,8 @@ const checkCookieByName = (cookieName) => {
   let cookieValue = cookies[cookieName];
 
   if (!cookieValue) {
-    console.log("Cookie not found");
     return false; // cookie not found
   } else {
-    console.log("Cookie found");
     return true; // cookie found
   }
 };
@@ -43,7 +41,6 @@ const checkCookieByName = (cookieName) => {
 const checkAndSetCookie = (name, value) => {
   let cookiesObject = getCookies();
   if (!cookiesObject?.[name]) {
-    console.log("Cookies not found");
     setCookie(name, value);
   }
 };
@@ -109,13 +106,11 @@ const checkIfUserLogin = () => {
       const sesssaltCookieExists = checkCookieByName(sesssaltCookie);
 
       if (res.status !== 200 && !phpidCookieExists && !sesssaltCookieExists) {
-        console.log("User not logged in");
-        // redirect to login page
         window.location.href = "https://new.tronixnetwork.com/login";
       }
     })
     .catch((error) => {
-      console.error("Error checking login status:", error);
+      return error;
     });
 };
 
