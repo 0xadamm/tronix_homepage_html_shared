@@ -30,7 +30,6 @@ const deleteCookie = (name) => {
 
 
 // Todo: create function that {checkCookieByName} checks if cookie exists by name
-
 const checkCookieByName = (cookieName) => {
   let cookies = getCookies();
   let cookieValue = cookies[cookieName];
@@ -45,7 +44,6 @@ const checkCookieByName = (cookieName) => {
 };
 
 // Todo: create function that {checkAndSetCookie} checks if cookie exists before setting it 
-
 const checkAndSetCookie = (name, value) => {
   let cookiesObject = getCookies();
   if (!cookiesObject?.[name]) {
@@ -55,7 +53,6 @@ const checkAndSetCookie = (name, value) => {
 };
 
 // Todo: create function that {checkAndDeleteCookie} checks if cookie exists before deleting it
-
 const checkAndDeleteCookie = (name) => {
   let cookiesObject = getCookies();
   if (!cookiesObject?.[name]) {
@@ -63,7 +60,7 @@ const checkAndDeleteCookie = (name) => {
   }
 };
 
-   const checkPasswordProtection = () => {
+const checkPasswordProtection = () => {
   let cookies = getCookies();
   let { tronixnetwork_password_entered } = cookies;
 
@@ -92,7 +89,7 @@ const checkIfUserLogin = () => {
       Accept: "application/json",
     },
   }).then((res) => {
-    // check if user is not authenticated
+    // Todo: if necessary auth cookies don't exist route to login page
     if (res.status !== 200) {
       // redirect to login page
       window.location.href = "/login";
@@ -111,6 +108,7 @@ const signIn = (email, password) => {
       email,
       password,
     }),
+    // Todo: set necessary auth cookies for login 
   });
 };
 
@@ -122,6 +120,7 @@ const signOut = () => {
     method: "POST",
   }).then((res) => {
     if (res.status === 200) {
+      // Todo: delete necessary auth cookies for logout
       window.location.href = "/login";
     }
     // TODO: handle error
