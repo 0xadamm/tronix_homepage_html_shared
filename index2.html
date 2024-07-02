@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tronix Network - Home</title>
 
-    <!-- TODO: Turn on Authcheck   -->
-    <!-- <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        AuthCheck(); // Call the AuthCheck function when the page loads
-      });
-    </script> -->
     <script src="https://cdn.jsdelivr.net/gh/arslancb/beeexplayer@master/beeexplayer.min.js"></script>
     <link
       rel="icon"
@@ -252,7 +246,6 @@
               <div>
                 <img
                   src="https://tronix-homepage-html.vercel.app/public/images/avatar_placeholder.png"
-                  alt=""
                 />
               </div>
 
@@ -303,10 +296,7 @@
                     alt=""
                   />
                 </div>
-                <div
-                  id="vodlixTronixUsername"
-                  style="font-size: 14px; font-weight: 500"
-                >
+                <div id="user" style="font-size: 14px; font-weight: 500">
                   &lt;username&gt;
                 </div>
               </div>
@@ -500,7 +490,7 @@
                   </li>
                   <!-- Sign Out -->
                   <li
-                    onclick="SignOut()"
+                    onclick="signOut()"
                     style="
                       width: 100%;
                       padding: 6px 8px 12px 6px;
@@ -1153,17 +1143,14 @@
     <div class="sticky-bg"></div>
 
     <section id="contentListBg" class="content-list">
+      <!-- Tv Shows -->
       <div class="content-list-carousel-container">
         <h1>TV Shows</h1>
         <div class="">
           <div class="tv-series">
             <div class="swiper-wrapper">
               <!-- The Cook Off  -->
-              <div
-                class="swiper-slide modal-desc"
-                data-series_id="1"
-                data-api_series_id="5"
-              >
+              <div class="swiper-slide modal-desc" data-api_series_id="5">
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/20-06-2024/1718859311045-blob.webp"
@@ -1242,11 +1229,7 @@
                 </div>
               </div>
               <!-- House of Blueface  -->
-              <div
-                class="swiper-slide modal-desc"
-                data-series_id="2"
-                data-api_series_id="4"
-              >
+              <div class="swiper-slide modal-desc" data-api_series_id="4">
                 <div class="show-image">
                   <img
                     src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/25-03-2024/1711337612195-blob.webp"
@@ -1415,6 +1398,7 @@
         </div>
       </div>
 
+      <!-- Music Videos -->
       <div class="content-list-carousel-container">
         <h1>Music Videos</h1>
         <div class="">
@@ -1504,6 +1488,7 @@
         </div>
       </div>
 
+      <!-- New Shows Coming Soon July -->
       <div class="content-list-carousel-container">
         <h1>New Shows Coming Soon July</h1>
         <div class="">
@@ -1650,7 +1635,7 @@
           </div>
         </div>
       </div>
-
+      <!-- Welcome Network - Trailers -->
       <div class="content-list-carousel-container">
         <h1>Welcome Network - Trailers</h1>
         <div class="">
@@ -1996,17 +1981,13 @@
             disablepictureinpicture="true"
             playsinline
             poster=""
-          >
-            <source src="" type="application/x-mpegURL" />
-          </video>
+          ></video>
           <div class="innerShade"></div>
         </div>
         <div class="description">
           <div class="basic-info">
             <div class="poster">
-              <img
-                src="https://tronixnetworkprod.s3.us-west-1.amazonaws.com/gudsho-upload-thumbnail-images/30-04-2024/1714492654752-blob.webp"
-              />
+              <img src="" />
             </div>
             <div class="meta-data">
               <h1 class="title">This is Title</h1>
@@ -2406,10 +2387,8 @@
     <!-- Hosted JavaScript Files -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/application_uix.js"></script>
-    <script src="https://tronix-homepage-html.vercel.app/public/js/promo_banner_carousel.js"></script>
-    <script src="https://tronix-homepage-html.vercel.app/public/js/tv_series_carousel.js"></script>
-    <script src="https://tronix-homepage-html.vercel.app/public/js/new_shows_carousel.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/content_list_carousel.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/modal.js"></script>
+    <script src="https://tronix-homepage-html.vercel.app/public/js/promo_banner_carousel.js"></script>
   </body>
 </html>
