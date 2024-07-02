@@ -4,6 +4,11 @@ const checkLoginUrl = "https://new.tronixnetwork.com/api/users/check_login";
 
 const signInUrl = "https://new.tronixnetwork.com/api/users/signin";
 
+const phpidCookie = "tronixnetworkphpid";
+const phpidCookieValue = "9fbjvlk011tbjeho70hp2rctc4";
+const sesssaltCookie = "tronixnetworksesssalt";
+const sesssaltCookieValue = "7bb6b2de";
+
 const getCookies = () => {
   const cookies = document.cookie.split("; ");
   const cookieObject = {};
@@ -19,18 +24,25 @@ const setCookie = (name, value) => {
   document.cookie = `${name}=${value}; path=/;`;
 };
 
-
 const deleteCookie = (name) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 };
 
 
 // Todo: create function that {checkCookieByName} checks if cookie exists by name
-// Todo: create function that {checkAndSetCookie} checks if cookie exists before setting it 
-// Todo: create function that {checkAndDeleteCookie} checks if cookie exists before deleting it
-   
 
-const checkPasswordProtection = () => {
+
+
+// Todo: create function that {checkAndSetCookie} checks if cookie exists before setting it 
+
+
+
+// Todo: create function that {checkAndDeleteCookie} checks if cookie exists before deleting it
+
+
+
+
+   const checkPasswordProtection = () => {
   let cookies = getCookies();
   let { tronixnetwork_password_entered } = cookies;
 
