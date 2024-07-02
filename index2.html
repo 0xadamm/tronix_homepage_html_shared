@@ -23,21 +23,7 @@
     />
   </head>
   <body>
-    <script src="https://tronix-homepage-html.vercel.app/public/js/auth.js"></script>
-
-    <!-- Project CSS links -->
-
-    <!-- <link rel="stylesheet" href="/public/css/main_styles.css" /> -->
-
-    <!-- <link rel="stylesheet" href="/public/css/mobile_side_menu.css" /> -->
-
-    <!-- <link rel="stylesheet" href="/public/css/carousel_styles.css" /> -->
-
-    <!-- <link rel="stylesheet" href="/public/css/tv_series_styles.css" /> -->
-
-    <!-- <link rel="stylesheet" href="/public/css/shows_styles.css" /> -->
-
-    <!-- <link rel="stylesheet" href="/public/css/footer_styles.css" /> -->
+    <script src="/public/js/auth.js"></script>
 
     <!-- Vodlix CSS links  -->
 
@@ -58,8 +44,7 @@
       rel="stylesheet"
     />
 
-    <!-- Vercel CSS links  -->
-
+    <!-- Vercel Hosted CSS links  -->
     <link
       rel="stylesheet"
       href="https://tronix-homepage-html.vercel.app/public/css/main_styles.css"
@@ -270,7 +255,7 @@
               </svg>
             </div>
 
-            <div class="profile-menu" style="width: auto">
+            <div class="profile-menu" style="width: 250px">
               <div
                 style="
                   padding: 1rem;
@@ -1134,8 +1119,11 @@
         <div class="banner-promo-player-controls">
           <div
             onclick="toggleMute(this)"
-            class="banner-promo-player-controls-mute-unmute bg-unmuted"
-          ></div>
+            id="myTooltip"
+            class="tooltip banner-promo-player-controls-mute-unmute bg-unmuted"
+          >
+            <span class="tooltiptext" id="myTooltipText">Click to unmute!</span>
+          </div>
         </div>
       </div>
     </section>
@@ -2377,14 +2365,7 @@
       </div>
     </template>
 
-    <!-- Project CSS Files -->
-    <!-- <script src="/public/js/application_uix.js"></script>
-    <script src="/public/js/swiper_controller.js"></script>
-    <script src="/public/js/tv_series_carousel.js"></script>
-    <script src="/public/js/new_shows_carousel.js"></script>
-    <script src="/public/js/modal.js"></script> -->
-
-    <!-- Hosted JavaScript Files -->
+    <!-- Vercel Hosted JavaScript Files  -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/application_uix.js"></script>
     <script src="https://tronix-homepage-html.vercel.app/public/js/content_list_carousel.js"></script>

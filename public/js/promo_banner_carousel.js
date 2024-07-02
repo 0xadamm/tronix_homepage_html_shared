@@ -26,6 +26,7 @@ let swiper;
               controlslist="nodownload"
               autoplay
               playsinline
+              muted
               poster="${item.thumbs.original}"
               data-trailer_id="${item.trailer.trailer_id}"
             >
@@ -111,6 +112,8 @@ let swiper;
         },
       });
 
+      
+
       window.bannerCarousel = swiper;
     })
     .catch(() => {
@@ -132,3 +135,16 @@ const toggleMute = (e) => {
 
   player.muted(!player.muted());
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+  var tooltip = document.getElementById("myTooltipText");
+  tooltip.style.visibility = "visible";
+  tooltip.style.opacity = 1;
+
+  function hideTooltip() {
+      tooltip.style.visibility = "hidden";
+      tooltip.style.opacity = 0;
+  }
+
+  setTimeout(hideTooltip, 5000);
+});
