@@ -31,7 +31,18 @@ const deleteCookie = (name) => {
 
 // Todo: create function that {checkCookieByName} checks if cookie exists by name
 
+const checkCookieByName = (cookieName) => {
+  let cookies = getCookies();
+  let cookieValue = cookies[cookieName];
 
+  if (!cookieValue) {
+    console.log("Cookie not found")
+    return false; // cookie not found
+  } else {
+    console.log("Cookie found")
+    return true; // cookie found
+  }
+};
 
 // Todo: create function that {checkAndSetCookie} checks if cookie exists before setting it 
 
