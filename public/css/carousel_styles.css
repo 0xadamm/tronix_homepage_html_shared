@@ -138,8 +138,10 @@ section#banner-promo-player:before {
   left: -10px;
   transform: translate(-100%, -50%);
   opacity: 0;
-  transition: opacity 0.3s, transform 0.3s;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .tooltip .tooltiptext::after {
@@ -157,4 +159,31 @@ section#banner-promo-player:before {
   visibility: visible;
   opacity: 1;
   transform: translate(-100%, -50%) scale(1); /* Adjust scale as needed */
+}
+
+/* Fix banner video double loading icon */
+
+#banner-promo-player .vjs-loading-spinner:after {
+  content: "";
+  display: none;
+}
+
+#banner-promo-player span.vjs-control-text {
+  width: 250px;
+  display: block;
+  position: relative;
+  top: 50px;
+  left: -70px;
+}
+
+/* Fix border radius issue */
+
+.tv-series .swiper-slide img {
+  height: 300px;
+  border-radius: 10px;
+}
+
+.new-shows-coming-soon .swiper-slide div.show-image img {
+  border-radius: 10px;
+  height: 180px;
 }
