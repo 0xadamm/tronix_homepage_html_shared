@@ -60,12 +60,13 @@
                               data-api_series_id="${_item.series_id}"
                               data-series_name="${_item.series_name || _item.title}"
                               data-series_tags="${_item.series_tags}"
-                              data-series_description="${_item.series_description}"
+                              data-series_description="${_item.series_description ?? _item.description}"
                               data-thumbnail="${_item.thumbs["200x288"]}"
                               data-video_poster="${_item.thumbs["768x432"]}"
                               data-copy_url="${_item.copy_url}"
                               data-shareable="${_item.shareable}"
                               data-is_series="${_item.is_series}"
+                              data-videoid="${_item.videoid}"
                           >
                               <div class="show-image">
                                 ${
@@ -195,13 +196,13 @@
                             data-api_series_id="${_item.series_id}"
                             data-series_name="${_item.series_name || _item.title}"
                             data-series_tags="${_item.series_tags}"
-                            data-series_description="${_item.series_description}"
-                            data-thumbnail="${_item.thumbs["200x288"]}"
-                            data-video_poster="${_item.thumbs["768x432"]}"
+                            data-series_description="${_item.series_description ?? _item.description}"
+                            data-thumbnail="${_item.thumbs["200x288"] ?? _item.thumb}"
+                            data-video_poster="${_item.thumbs["768x432"] ?? _item.thumb}"
                             data-copy_url="${_item.copy_url}"
                             data-shareable="${_item.shareable}"
                             data-is_series="${_item.is_series}"
-                            data-videoid="${_item.videoid ?? _item.trailer.content_trailer_id}"
+                            data-videoid="${_item.videoid ?? _item.trailer.trailer_id}"
                         >
                             <div class="show-image">
                               ${

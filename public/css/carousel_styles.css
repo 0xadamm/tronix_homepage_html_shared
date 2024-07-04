@@ -161,14 +161,14 @@ section#banner-promo-player:before {
   transform: translate(-100%, -50%) scale(1); /* Adjust scale as needed */
 }
 
-/* Fix banner video double loading icon */
+/* Fix banner video double loading icon + fixed modal video double loading icon */
 
-#banner-promo-player .vjs-loading-spinner:after {
+#banner-promo-player .vjs-loading-spinner:after, .video-player .vjs-loading-spinner:after {
   content: "";
   display: none;
 }
 
-#banner-promo-player span.vjs-control-text {
+#banner-promo-player span.vjs-control-text, .video-player span.vjs-control-text {
   width: 250px;
   display: block;
   position: relative;

@@ -919,152 +919,153 @@ container.addEventListener("click", async (e) => {
           index === 1 ? item.dataset.copy_url : item.dataset.shareable;
       });
     });
+    if(series_id != 0){
+      try {
+        /* GET Season info */
+        fetch(`${backendUrl}/season/list/${series_id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            /**
+             * @var {any[]} seasons
+             */
 
-    try {
-      /* GET Season info */
-      fetch(`${backendUrl}/season/list/${series_id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          /**
-           * @var {any[]} seasons
-           */
+            const seasons = data.data.seasons;
+            seasons.sort((a, b) => a.sequence - b.sequence);
+            if (seasons.length > 0) {
+              let seasonOptions = "";
+              seasons.forEach((season, index) => {
+                seasonOptions += `<option value="${season.season_id}" ${index === 0 ? "selected" : ""}>Season ${season.sequence}</option>`;
+              });
+              /* Select-Option has been added */
+              document.querySelector(".modal .episode-header").innerHTML =
+                `<h1 class="episode-title">Episodes</h1>
+                  <select id="season-select">${seasonOptions}</select>`;
 
-          const seasons = data.data.seasons;
-          seasons.sort((a, b) => a.sequence - b.sequence);
-          if (seasons.length > 0) {
-            let seasonOptions = "";
-            seasons.forEach((season, index) => {
-              seasonOptions += `<option value="${season.season_id}" ${index === 0 ? "selected" : ""}>Season ${season.sequence}</option>`;
-            });
-            /* Select-Option has been added */
-            document.querySelector(".modal .episode-header").innerHTML =
-              `<h1 class="episode-title">Episodes</h1>
-                <select id="season-select">${seasonOptions}</select>`;
+              // fetch the first seasons episodes
+              const season_id = seasons[0].season_id;
 
-            // fetch the first seasons episodes
-            const season_id = seasons[0].season_id;
-
-            fetch(
-              `${backendUrl}/season/data?season_id=${season_id}&series_id=${series_id}`,
-              {
-                method: "GET",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
+              fetch(
+                `${backendUrl}/season/data?season_id=${season_id}&series_id=${series_id}`,
+                {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                  },
                 },
-              },
-            )
-              .then((res) => res.json())
-              .then((data) => {
-                console.log(data.data);
-                // add this data to the modal
-                const episodes = data.data;
-                let episode_cards = "";
+              )
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data.data);
+                  // add this data to the modal
+                  const episodes = data.data;
+                  let episode_cards = "";
 
-                episodes.forEach((episode, index) => {
-                  episode_cards += `
-                  <div class="episode-card" onclick="window.location='${
-                    "https://new.tronixnetwork.com/" + episode.url
-                  }'" style="cursor: pointer;">
-                              <div style="width: 7%">
-                                <h1 class="episode-number">${index + 1}</h1>
-                              </div>
-                              <div>
-                                <div class="episode-image">
-                                  <img
-                                    src="${episode.thumbs[`200x288`]}"
-                                  />
-                                </div>
-                              </div>
-                              <div class="per-episode-details-container">
-                                <div class="per-episode-details">
-                                  <h1 class="episode-title">
-                                    ${episode.title}
-                                  </h1>
-                                  <span class="episode-duration">${episode.duration}</span>
+                  episodes.forEach((episode, index) => {
+                    episode_cards += `
+                    <div class="episode-card" onclick="window.location='${
+                      "https://new.tronixnetwork.com/" + episode.url
+                    }'" style="cursor: pointer;">
+                                <div style="width: 7%">
+                                  <h1 class="episode-number">${index + 1}</h1>
                                 </div>
                                 <div>
-                                  ${episode.description}
+                                  <div class="episode-image">
+                                    <img
+                                      src="${episode.thumbs[`200x288`]}"
+                                    />
+                                  </div>
                                 </div>
-                              </div>
-                            </div>`;
+                                <div class="per-episode-details-container">
+                                  <div class="per-episode-details">
+                                    <h1 class="episode-title">
+                                      ${episode.title}
+                                    </h1>
+                                    <span class="episode-duration">${episode.duration}</span>
+                                  </div>
+                                  <div>
+                                    ${episode.description}
+                                  </div>
+                                </div>
+                              </div>`;
+                  });
+
+                  document.querySelector(
+                    ".modal .episode-list-container",
+                  ).innerHTML = episode_cards;
                 });
 
-                document.querySelector(
-                  ".modal .episode-list-container",
-                ).innerHTML = episode_cards;
-              });
-
-            document
-              .querySelector(".modal select#season-select")
-              .addEventListener("change", (e) => {
-                const _season_id = e.target.value;
-                fetch(
-                  `${backendUrl}/season/data?season_id=${_season_id}&series_id=${series_id}`,
-                  {
-                    method: "GET",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Accept: "application/json",
+              document
+                .querySelector(".modal select#season-select")
+                .addEventListener("change", (e) => {
+                  const _season_id = e.target.value;
+                  fetch(
+                    `${backendUrl}/season/data?season_id=${_season_id}&series_id=${series_id}`,
+                    {
+                      method: "GET",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json",
+                      },
                     },
-                  },
-                )
-                  .then((res) => res.json())
-                  .then((data) => {
-                    // clear previous episode list
-                    document.querySelector(
-                      ".modal .episode-list-container",
-                    ).innerHTML = "";
-                    // add this data to the modal
-                    const episodes = data.data;
-                    let episode_cards = "";
+                  )
+                    .then((res) => res.json())
+                    .then((data) => {
+                      // clear previous episode list
+                      document.querySelector(
+                        ".modal .episode-list-container",
+                      ).innerHTML = "";
+                      // add this data to the modal
+                      const episodes = data.data;
+                      let episode_cards = "";
 
-                    episodes.forEach((episode, index) => {
-                      episode_cards += `<div class="episode-card" onclick="window.location='${
-                        "https://new.tronixnetwork.com/" + episode.url
-                      }'" style="cursor: pointer;">
-                                  <div>
-                                    <h1 class="episode-number">${index + 1}</h1>
-                                  </div>
-                                  <div>
-                                    <div class="episode-image">
-                                      <img
-                                        src="${episode.thumbs[`200x288`]}"
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="per-episode-details-container">
-                                    <div class="per-episode-details">
-                                      <h1 class="episode-title">
-                                        ${episode.title}
-                                      </h1>
-                                      <span class="episode-duration">${episode.duration}</span>
+                      episodes.forEach((episode, index) => {
+                        episode_cards += `<div class="episode-card" onclick="window.location='${
+                          "https://new.tronixnetwork.com/" + episode.url
+                        }'" style="cursor: pointer;">
+                                    <div>
+                                      <h1 class="episode-number">${index + 1}</h1>
                                     </div>
                                     <div>
-                                      ${episode.description}
+                                      <div class="episode-image">
+                                        <img
+                                          src="${episode.thumbs[`200x288`]}"
+                                        />
+                                      </div>
                                     </div>
-                                  </div>
-                                </div>`;
-                    });
+                                    <div class="per-episode-details-container">
+                                      <div class="per-episode-details">
+                                        <h1 class="episode-title">
+                                          ${episode.title}
+                                        </h1>
+                                        <span class="episode-duration">${episode.duration}</span>
+                                      </div>
+                                      <div>
+                                        ${episode.description}
+                                      </div>
+                                    </div>
+                                  </div>`;
+                      });
 
-                    document.querySelector(
-                      ".modal .episode-list-container",
-                    ).innerHTML = episode_cards;
-                  });
-              });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } catch (error) {
-      console.log(series_id);
+                      document.querySelector(
+                        ".modal .episode-list-container",
+                      ).innerHTML = episode_cards;
+                    });
+                });
+            }
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } catch (error) {
+        console.log(series_id);
+      }
     }
 
     // change bottom title
