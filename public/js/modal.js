@@ -1126,6 +1126,7 @@ container.addEventListener("click", async (e) => {
     const player = videojs("modal-video-player", {
       controls: false,
       autoplay: true,
+      muted: true,
       preload: "auto",
     });
 
