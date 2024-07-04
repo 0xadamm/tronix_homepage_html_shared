@@ -309,7 +309,7 @@ header .header a img {
   width: 100%;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1173px) {
   header {
     padding: 14px 20px;
   }
@@ -338,7 +338,7 @@ header div.header {
   gap: 38px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1173px) {
   header div.header {
     justify-content: space-between;
     gap: 20px;
@@ -353,7 +353,7 @@ header div.header ul {
   align-items: center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1173px) {
   header div.header ul {
     display: none;
   }
@@ -459,7 +459,7 @@ header div.header-right {
   align-items: center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1173px) {
   header div.header-right {
     margin-left: 0;
     gap: 0;
@@ -490,7 +490,7 @@ button {
   background: var(--primary_button_hover_color) !important;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1173px) {
   .headBtn {
     display: none;
   }
@@ -536,7 +536,7 @@ header div.header-right div.profile div.profile-menu.shown {
   visibility: visible;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1173px) {
   header div.header-right div.profile .profile-icon-container {
     display: none;
   }
