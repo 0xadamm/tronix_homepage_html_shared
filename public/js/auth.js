@@ -62,6 +62,37 @@ const checkPasswordProtection = () => {
   }
 };
 
+// TODO: Get username
+const getMyDetails = () => {
+  fetch("https://new.tronixnetwork.com/api/users/me", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      } else {
+        throw new Error("Error getting username");
+      }
+    })
+    .then((data) => {
+      const menu_username = data.data.username;
+      const mobile_menu_username = data.data.username;
+      document.getElementById("menu-username").innerText = menu_username;
+      document.getElementById("mobile-menu-username").innerText =
+        mobile_menu_username;
+      return menu_username;
+    })
+    .catch((error) => {
+      document.getElementById("menu-username").innerText =
+        "Error getting username";
+      return error;
+    });
+};
+
 // ** Utility Functions
 const checkIfUserLogin = () => {
   fetch(`${checkLoginUrl}`, {
@@ -72,6 +103,7 @@ const checkIfUserLogin = () => {
     },
   })
     .then((res) => {
+      getMyDetails();
       const phpidCookieExists = checkCookieByName(phpidCookie);
       const sesssaltCookieExists = checkCookieByName(sesssaltCookie);
 
@@ -81,7 +113,7 @@ const checkIfUserLogin = () => {
       }
     })
     .catch((error) => {
-      console.error("Error checking login status:", error);
+      return error;
     });
 };
 
@@ -96,9 +128,13 @@ const localSignIn = (username, password) => {
       username,
       password,
     }),
-  }).then(() => {
-    checkAndSetCookie(phpidCookie, phpidCookieValue);
-    checkAndSetCookie(sesssaltCookie, sesssaltCookieValue);
+  }).then((res) => {
+    if (res.status === 200) {
+      checkAndSetCookie(phpidCookie, phpidCookieValue);
+      checkAndSetCookie(sesssaltCookie, sesssaltCookieValue);
+    } else {
+      throw new Error("Error signing in");
+    }
   });
 };
 
@@ -117,15 +153,15 @@ const signOut = () => {
   });
 };
 
-// signIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
-
+// localSignIn("vertxlabsadam@gmail.com", "xkLzyhwL26EyuAb");
+// getMyDetails();
 // checkIfUserLogin();
 
 // TODO: Turn on password protection
 // checkPasswordProtection();
 
 // TODO: Turn on local auth token
-// checkIfUserLogin();
+checkIfUserLogin();
 
 // @ts-ignore
 window.signOut = signOut; // make available globally
