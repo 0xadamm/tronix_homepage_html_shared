@@ -911,15 +911,18 @@ container.addEventListener("click", async (e) => {
     modal.querySelector(".details .description-text").textContent =
       item.dataset.series_description;
 
-    // add link to the action buttons
     const actionButtons = modal.querySelectorAll(".actions .action-btn");
+
     actionButtons.forEach((_item, index) => {
       _item.addEventListener("click", () => {
+        console.log("testing here");
+        console.log(item.dataset.shareable);
         window.location.href =
-          index === 1 ? item.dataset.copy_url : item.dataset.shareable;
+          index === 1 ? item.dataset.copy_url : item.dataset.shareable; // item.dataset.shareable;
       });
     });
-    if(series_id != 0){
+
+    if (series_id != 0) {
       try {
         /* GET Season info */
         fetch(`${backendUrl}/season/list/${series_id}`, {
@@ -963,6 +966,17 @@ container.addEventListener("click", async (e) => {
                 .then((res) => res.json())
                 .then((data) => {
                   console.log(data.data);
+                  actionButtons.forEach((_item, index) => {
+                    _item.addEventListener("click", () => {
+                      console.log("testing here");
+                      console.log(item.dataset.shareable);
+                      window.location.href =
+                        index === 1
+                          ? data.data[0].watch_url
+                          : item.dataset.shareable; // item.dataset.shareable;
+                    });
+                  });
+
                   // add this data to the modal
                   const episodes = data.data;
                   let episode_cards = "";
