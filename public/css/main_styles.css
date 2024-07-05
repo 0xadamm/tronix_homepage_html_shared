@@ -805,15 +805,13 @@ body div.sticky-bg {
 }
 
 .modal-container .modal .description .basic-info .poster img {
-  height: 10rem;
-  width: 7rem;
+  width: 15rem;
   border-radius: 10px;
 }
 
 @media screen and (max-width: 768px) {
   .modal-container .modal .description .basic-info .poster img {
-    height: 5rem;
-    width: 3.5rem;
+    width: 9rem;
   }
 }
 
