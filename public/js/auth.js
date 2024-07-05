@@ -63,59 +63,80 @@ const checkPasswordProtection = () => {
 };
 
 // TODO: Get username
-const getMyDetails = () => {
-  fetch("https://new.tronixnetwork.com/api/users/me", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      } else {
-        throw new Error("Error getting username");
-      }
-    })
-    .then((data) => {
-      const menu_username = data.data.username;
-      const mobile_menu_username = data.data.username;
-      document.getElementById("menu-username").innerText = menu_username;
-      document.getElementById("mobile-menu-username").innerText =
-        mobile_menu_username;
-      return menu_username;
-    })
-    .catch((error) => {
-      document.getElementById("menu-username").innerText =
-        "Error getting username";
-      return error;
-    });
-};
-
 // ** Utility Functions
-const checkIfUserLogin = () => {
-  fetch(`${checkLoginUrl}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  })
-    .then((res) => {
-      getMyDetails();
-      const phpidCookieExists = checkCookieByName(phpidCookie);
-      const sesssaltCookieExists = checkCookieByName(sesssaltCookie);
-
-      if (res.status !== 200 && !phpidCookieExists && !sesssaltCookieExists) {
-        // redirect to login page
-        window.location.href = "https://new.tronixnetwork.com/login";
-      }
+document.addEventListener("DOMContentLoaded", () => {
+  const getMyDetails = () => {
+    fetch("https://new.tronixnetwork.com/api/users/me", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
     })
-    .catch((error) => {
-      return error;
-    });
-};
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        } else {
+          throw new Error("Error getting username");
+        }
+      })
+      .then((data) => {
+        const menu_username = data.data.username;
+        const mobile_menu_username = data.data.username;
+
+        const menuUsernameElement = document.getElementById("menu-username");
+        const mobileMenuUsernameElement = document.getElementById(
+          "mobile-menu-username",
+        );
+
+        if (menuUsernameElement) {
+          menuUsernameElement.innerText = menu_username;
+        } else {
+          console.error("Element with id 'menu-username' not found.");
+        }
+
+        if (mobileMenuUsernameElement) {
+          mobileMenuUsernameElement.innerText = mobile_menu_username;
+        } else {
+          console.error("Element with id 'mobile-menu-username' not found.");
+        }
+
+        return menu_username;
+      })
+      .catch((error) => {
+        const menuUsernameElement = document.getElementById("menu-username");
+        if (menuUsernameElement) {
+          menuUsernameElement.innerText = "Error getting username";
+        }
+        console.error("Error:", error);
+      });
+  };
+
+  const checkIfUserLogin = () => {
+    fetch(checkLoginUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((res) => {
+        getMyDetails();
+        const phpidCookieExists = checkCookieByName(phpidCookie);
+        const sesssaltCookieExists = checkCookieByName(sesssaltCookie);
+
+        if (res.status !== 200 && !phpidCookieExists && !sesssaltCookieExists) {
+          // redirect to login page
+          window.location.href = "https://new.tronixnetwork.com/login";
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking login status:", error);
+      });
+  };
+
+  checkIfUserLogin();
+});
 
 const localSignIn = (username, password) => {
   fetch(`${signInUrl}`, {
