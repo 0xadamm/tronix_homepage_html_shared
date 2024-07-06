@@ -17,23 +17,26 @@ let swiper;
       );
       let itemHtml = "";
       data.data.forEach(async (item) => {
-        itemHtml += `
-          <div class="swiper-slide">
-            <video
-              id="banner-video-${item.trailer.trailer_id}"
-              class="banner"
-              disablepictureinpicture="true"
-              controlslist="nodownload"
-              autoplay
-              playsinline
-              muted
-              poster="${item.thumbs.original}"
-              data-trailer_id="${item.trailer.trailer_id}"
-            >
-              
-            </video>
-          </div>
-          `;
+        if(item.trailer != null)
+        {
+          itemHtml += `
+            <div class="swiper-slide">
+              <video
+                id="banner-video-${item.trailer.trailer_id}"
+                class="banner"
+                disablepictureinpicture="true"
+                controlslist="nodownload"
+                autoplay
+                playsinline
+                muted
+                poster="${item.thumbs.original}"
+                data-trailer_id="${item.trailer.trailer_id}"
+              >
+                
+              </video>
+            </div>
+            `;
+        }
       });
 
       bannerContainer.innerHTML =
@@ -102,11 +105,14 @@ let swiper;
               console.log(error);
             }
 
-            try {
-              const prevPlayer = videojs(prevVideo.id);
-              prevPlayer.pause();
-            } catch (error) {
-              console.log("Video Autoplay is not supported!");
+            if(prevVideo && args[0].previousIndex != args[0].activeIndex) {
+              try {
+                const prevPlayer = videojs.players[prevVideo.id];
+                prevPlayer.pause();
+                prevPlayer.muted(true);
+              } catch (error) {
+                console.log("Video Autoplay is not supported!");
+              }
             }
           }
         },

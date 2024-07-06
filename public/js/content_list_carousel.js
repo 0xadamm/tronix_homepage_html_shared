@@ -11,6 +11,7 @@
   }
   const backendUrl = "https://new.tronixnetwork.com/api";
   const contentContainer = document.querySelector("#contentListBg");
+  var swiperCounter = 1;
   contentContainer.innerHTML = `
             <div style="display: flex; justify-content: start; align-items: center; padding: 3rem 0 0; gap: 1rem">
                 <div style="background-color: #ffffff20; width: 100%; height: 200px; border-radius: 10px"></div>
@@ -326,11 +327,15 @@
                           </div>
                   `;
           });
-
+          
           contentContainer.innerHTML += `
-              <div class="content-list-carousel-container">
+              <div class="content-list-carousel-container swiper-custom-container-${swiperCounter}">
                   <h1>${item.content_list_name}</h1>
-                  <div class="${isPortrait ? "tv-series" : "new-shows-coming-soon"}">
+                  <div class="swiper-navigation">
+                    <div class="swiper-button-prev"></div>    
+                    <div class="swiper-button-next"></div>
+                  </div>
+                  <div class="${isPortrait ? "tv-series" : "new-shows-coming-soon"} swiper-container" id="swiper-custom-${swiperCounter}">
                       <div class="swiper-wrapper">
                           ${itemHtml}
                       </div>
@@ -338,7 +343,7 @@
                   </div>
               </div>
             `;
-
+          swiperCounter++;
           // add hover effect of content cards
           const swiperSlide = document.querySelectorAll(".swiper-slide");
 
@@ -379,66 +384,6 @@
             });
           });
 
-          // init swiper
-          swiper = new Swiper(
-            isPortrait ? ".tv-series" : ".new-shows-coming-soon",
-            isPortrait
-              ? {
-                  slidesPerView: 6,
-                  breakpoints: {
-                    // when window width is >= 320px
-                    320: {
-                      slidesPerView: 2,
-                      spaceBetween: 20,
-                    },
-                    480: {
-                      slidesPerView: 3,
-                      spaceBetween: 20,
-                    },
-                    640: {
-                      slidesPerView: 4,
-                      spaceBetween: 20,
-                    },
-                    968: {
-                      slidesPerView: 5,
-                      spaceBetween: 20,
-                    },
-                    1280: {
-                      slidesPerView: 6,
-                      spaceBetween: 20,
-                    },
-                  },
-                  spaceBetween: 16,
-                  maxBackfaceHiddenSlides: 6,
-                  virtual: true,
-                }
-              : {
-                  slidesPerView: 4,
-                  breakpoints: {
-                    // when window width is >= 320px
-                    320: {
-                      slidesPerView: 1,
-                      spaceBetween: 20,
-                    },
-                    640: {
-                      slidesPerView: 2,
-                      spaceBetween: 20,
-                    },
-                    968: {
-                      slidesPerView: 3,
-                      spaceBetween: 20,
-                    },
-                    1280: {
-                      slidesPerView: 4,
-                      spaceBetween: 20,
-                    },
-                  },
-                  spaceBetween: 16,
-                  maxBackfaceHiddenSlides: 6,
-                  virtual: true,
-                },
-          );
-
           // Add hover event to play video
           const toggleImg = document.querySelectorAll(".toggleImg");
 
@@ -461,5 +406,86 @@
           }
         }
       }
+
+      var myswiper;
+      var allSwiperSliders = document.querySelectorAll('[id^="swiper-custom-"]');
+      var newSwCounter = 1;
+      allSwiperSliders.forEach(sw => {
+          if(sw.classList.contains("tv-series"))
+          {
+            swiperConfig = {
+              navigation: {
+                nextEl: ".swiper-custom-container-" + newSwCounter + " .swiper-button-next",
+                prevEl: ".swiper-custom-container-" + newSwCounter + " .swiper-button-prev",
+              },
+              slidesPerView: 6,
+              breakpoints: {
+                // when window width is >= 320px
+                320: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                480: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+                640: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
+                968: {
+                  slidesPerView: 5,
+                  spaceBetween: 20,
+                },
+                1280: {
+                  slidesPerView: 6,
+                  spaceBetween: 20,
+                },
+              },
+              spaceBetween: 16,
+              maxBackfaceHiddenSlides: 6,
+              virtual: true,
+            };
+          }
+          else
+          {
+            swiperConfig = {
+              navigation: {
+                nextEl: ".swiper-custom-container-" + newSwCounter + " .swiper-button-next",
+                prevEl: ".swiper-custom-container-" + newSwCounter + " .swiper-button-prev",
+              },
+              slidesPerView: 4,
+              breakpoints: {
+                // when window width is >= 320px
+                320: {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                },
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                968: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+                1280: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
+              },
+              spaceBetween: 16,
+              maxBackfaceHiddenSlides: 6,
+              virtual: true,
+            };
+          }
+
+          newSwCounter++;
+
+          myswiper= new Swiper(
+            sw, 
+            swiperConfig
+          );
+      });
     });
 })();
